@@ -1,0 +1,529 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>STACKLY - Contact Us</title>
+  
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            brand: {
+              taupe: '#5C524A',
+              taupeDark: '#4A413A',
+              taupeLight: '#6F645B',
+              bgLight: '#F8F9FA',
+              bgWarm: '#F7F6F4',
+              bgStep: '#F0EEE9',
+              navGray: '#555555',
+              dark: '#1C1917',
+              subtitle: '#5A5450',
+            }
+          },
+          fontFamily: {
+            serif: ['"Playfair Display"', 'Georgia', 'serif'],
+            sans: ['"Plus Jakarta Sans"', 'Inter', 'system-ui', 'sans-serif'],
+          }
+        }
+      }
+    }
+  </script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400;1,600;1,700&family=Plus+Jakarta+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css" />
+    <!-- Awwwards / Apple-Grade Motion Libraries (Lenis Smooth Scroll + GSAP + ScrollTrigger) -->
+  <link rel="stylesheet" href="https://unpkg.com/lenis@1.1.18/dist/lenis.css" />
+  <script src="https://unpkg.com/lenis@1.1.18/dist/lenis.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+</head>
+<body class="bg-white font-sans antialiased text-[#1C1917] flex flex-col min-h-screen selection:bg-[#5C524A] selection:text-white">
+
+  <!-- TOP NAVIGATION BAR -->
+  <header class="w-full bg-white border-b border-gray-200/75 sticky top-0 z-40">
+    <div class="max-w-[1400px] mx-auto px-6 sm:px-8 lg:px-12 h-[72px] flex items-center justify-between">
+      <a href="index.html" class="flex items-center gap-2.5 group select-none flex-shrink-0">
+        <img src="assets/images-02/logo-stackly.webp" alt="STACKLY" class="h-7 sm:h-8 w-auto object-contain transform transition-transform group-hover:scale-105 duration-200" />
+      </a>
+      <nav class="hidden lg:flex items-center gap-6 xl:gap-8 text-[14px]">
+        <a href="index.html" class="nav-link">Home</a>
+        <a href="about.html" class="nav-link">About Us</a>
+        <a href="weddings.html" class="nav-link">Weddings</a>
+        <a href="services.html" class="nav-link">Services</a>
+        <a href="team.html" class="nav-link">Our Team</a>
+        <a href="inspiration.html" class="nav-link">Inspiration</a>
+        <a href="testimonials.html" class="nav-link">Testimonials</a>
+        <a href="contact.html" class="nav-link nav-link-active font-semibold">Contact Us</a>
+      </nav>
+      <div class="hidden lg:flex items-center gap-3">
+        <a href="login.html" class="btn-login px-6 py-2 rounded-lg text-[12px] font-semibold tracking-[0.08em] inline-block">LOGIN</a>
+        <button onclick="openModal('signup-modal')" class="btn-signup px-6 py-2 rounded-lg text-[12px] font-semibold tracking-[0.08em]">SIGN UP</button>
+      </div>
+      <div class="flex lg:hidden items-center gap-2">
+        <button onclick="openModal('signup-modal')" class="btn-signup px-3.5 py-1.5 rounded-md text-[11px] font-semibold">SIGN UP</button>
+        <button id="mobile-menu-btn" class="p-2 rounded-lg text-gray-600 hover:text-gray-900 hover:bg-gray-100 focus:outline-none" aria-label="Toggle Menu">
+          <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" /></svg>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <main class="flex-grow">
+    
+    <!-- CONTACT US HERO SECTION -->
+    <section class="relative w-full min-h-[480px] sm:min-h-[540px] lg:min-h-[580px] flex items-center justify-center overflow-hidden border-b border-gray-100">
+      
+      <!-- Background Image with Soft Light Overlay & White Bottom Fade -->
+      <div class="absolute inset-0 z-0">
+        <img src="assets/images-01/contact-hero-bg.webp" alt="Let's Create Your Celebration" class="w-full h-full object-cover object-center" />
+        <!-- Soft Light White Overlay & Bottom Vignette Gradient Fade -->
+        <div class="absolute inset-0 bg-white/75 backdrop-blur-[1px]"></div>
+        <div class="absolute inset-0 bg-gradient-to-b from-white/40 via-white/70 to-white"></div>
+      </div>
+
+      <!-- Hero Content -->
+      <div class="relative z-10 max-w-[800px] mx-auto text-center px-6 sm:px-8 py-20 sm:py-24 flex flex-col items-center justify-center">
+        
+        <!-- Main Title -->
+        <h1 class="font-serif-title text-[46px] sm:text-[56px] lg:text-[64px] font-bold text-[#63564D] tracking-tight leading-[1.1] text-center">
+          Let's Create Your<br />Celebration
+        </h1>
+
+      </div>
+    </section>
+
+    <!-- TELL US ABOUT YOUR WEDDING SECTION -->
+    <section class="w-full bg-[#FAF9F6] py-16 sm:py-20 lg:py-24 border-b border-gray-100">
+      <div class="max-w-[760px] mx-auto px-6 sm:px-8 text-center flex flex-col items-center justify-center">
+        
+        <!-- Section Title -->
+        <h2 class="font-serif-title text-[38px] sm:text-[46px] lg:text-[52px] font-bold text-[#63564D] tracking-tight mb-4 text-center">
+          Tell Us About Your Wedding
+        </h2>
+
+        <!-- Subtitle Description -->
+        <p class="font-sans text-[14.5px] sm:text-[16px] text-[#6B625A] max-w-[620px] mx-auto leading-[1.68] font-normal text-center">
+          We are honored to be considered for your celebration. Please share the initial details of your vision with us below, and we will be in touch shortly to schedule a consultation.
+        </p>
+
+      </div>
+    </section>
+
+    <!-- BOOK A WEDDING CONSULTATION & STUDIO OFFICE SECTION -->
+    <section class="w-full bg-[#FAF9F6] py-16 sm:py-20 lg:py-24 border-b border-gray-100">
+      <div class="max-w-[1152px] mx-auto px-6 sm:px-8 lg:px-12">
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-14 items-start max-w-[1080px] mx-auto">
+          
+          <!-- Left Column: Form Card (7 cols) -->
+          <div class="lg:col-span-7 bg-white p-8 sm:p-10 rounded-xl shadow-lg border border-gray-100/80">
+            <h3 class="font-serif-title text-[28px] sm:text-[32px] font-bold text-[#63564D] mb-1">
+              Book a Wedding Consultation
+            </h3>
+            <p class="font-serif-title text-[18px] sm:text-[20px] text-[#6B625A] mb-8 font-normal">
+              Wedding Enquiry Form
+            </p>
+
+            <form id="contact-page-form" onsubmit="event.preventDefault(); var nameVal = document.getElementById('contact-name').value.trim(); var emailVal = document.getElementById('contact-email').value.trim(); var dateVal = document.getElementById('contact-date').value; if (!/^[A-Za-z ]+$/.test(nameVal)) { alert('Full name must contain only letters.'); return false; } if (!emailVal.toLowerCase().endsWith('.com')) { alert('Email address must end with .com'); return false; } if (!dateVal) { alert('Please select a proposed event date.'); return false; } window.location.href='404.html';" class="space-y-6">
+              
+              <!-- Row 1: Full Name & Email Address -->
+              <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                <div>
+                  <label class="block text-[10.5px] font-bold tracking-[0.16em] text-[#7A7067] uppercase mb-1">FULL NAME</label>
+                  <input id="contact-name" type="text" required placeholder="" oninput="this.value = this.value.replace(/[^A-Za-z ]/g, '');" class="w-full py-2 bg-transparent border-b border-gray-300 focus:border-[#63564D] focus:outline-none text-[14px] text-[#1C1917] transition-colors" />
+                </div>
+                <div>
+                  <label class="block text-[10.5px] font-bold tracking-[0.16em] text-[#7A7067] uppercase mb-1">EMAIL ADDRESS</label>
+                  <input id="contact-email" type="email" required placeholder="" class="w-full py-2 bg-transparent border-b border-gray-300 focus:border-[#63564D] focus:outline-none text-[14px] text-[#1C1917] transition-colors" />
+                </div>
+              </div>
+
+              <!-- Row 2: Proposed Event Date & Est. Guest Count -->
+              <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                <div>
+                  <label class="block text-[10.5px] font-bold tracking-[0.16em] text-[#7A7067] uppercase mb-1">PROPOSED EVENT DATE</label>
+                  <input id="contact-date" type="date" required placeholder="mm/dd/yyyy" class="w-full py-2 bg-transparent border-b border-gray-300 focus:border-[#63564D] focus:outline-none text-[14px] text-[#1C1917] transition-colors" />
+                </div>
+                <div>
+                  <label class="block text-[10.5px] font-bold tracking-[0.16em] text-[#7A7067] uppercase mb-1">EST. GUEST COUNT</label>
+                  <input type="number" placeholder="" class="w-full py-2 bg-transparent border-b border-gray-300 focus:border-[#63564D] focus:outline-none text-[14px] text-[#1C1917] transition-colors" />
+                </div>
+              </div>
+
+              <!-- Row 3: Venue or Location -->
+              <div>
+                <label class="block text-[10.5px] font-bold tracking-[0.16em] text-[#7A7067] uppercase mb-1">VENUE OR LOCATION</label>
+                <input type="text" placeholder="" class="w-full py-2 bg-transparent border-b border-gray-300 focus:border-[#63564D] focus:outline-none text-[14px] text-[#1C1917] transition-colors" />
+              </div>
+
+              <!-- Row 4: Aesthetic Focus (Multi-select Pills) -->
+              <div>
+                <label class="block text-[10.5px] font-bold tracking-[0.16em] text-[#7A7067] uppercase mb-3">AESTHETIC FOCUS (SELECT ALL THAT APPLY)</label>
+                <div class="flex flex-wrap gap-2.5">
+                  <label class="cursor-pointer">
+                    <input type="checkbox" name="aesthetic" value="Modern" class="hidden peer" />
+                    <span class="inline-block px-4 py-1.5 rounded-md bg-[#F4F2EE] text-[#524B45] text-[12.5px] font-medium peer-checked:bg-[#685D54] peer-checked:text-white transition-colors">Modern</span>
+                  </label>
+                  <label class="cursor-pointer">
+                    <input type="checkbox" name="aesthetic" value="Vintage" class="hidden peer" />
+                    <span class="inline-block px-4 py-1.5 rounded-md bg-[#F4F2EE] text-[#524B45] text-[12.5px] font-medium peer-checked:bg-[#685D54] peer-checked:text-white transition-colors">Vintage</span>
+                  </label>
+                  <label class="cursor-pointer">
+                    <input type="checkbox" name="aesthetic" value="Destination" class="hidden peer" />
+                    <span class="inline-block px-4 py-1.5 rounded-md bg-[#F4F2EE] text-[#524B45] text-[12.5px] font-medium peer-checked:bg-[#685D54] peer-checked:text-white transition-colors">Destination</span>
+                  </label>
+                  <label class="cursor-pointer">
+                    <input type="checkbox" name="aesthetic" value="Classic" class="hidden peer" />
+                    <span class="inline-block px-4 py-1.5 rounded-md bg-[#F4F2EE] text-[#524B45] text-[12.5px] font-medium peer-checked:bg-[#685D54] peer-checked:text-white transition-colors">Classic</span>
+                  </label>
+                </div>
+              </div>
+
+              <!-- Row 5: Tell Us About Your Vision -->
+              <div>
+                <label class="block text-[10.5px] font-bold tracking-[0.16em] text-[#7A7067] uppercase mb-1">TELL US ABOUT YOUR VISION</label>
+                <textarea rows="3" placeholder="" class="w-full py-2 bg-transparent border-b border-gray-300 focus:border-[#63564D] focus:outline-none text-[14px] text-[#1C1917] transition-colors resize-y"></textarea>
+              </div>
+
+              <!-- Submit Button -->
+              <div class="pt-2">
+                <button type="submit" class="px-7 py-3 bg-[#685D54] hover:bg-[#544B43] text-white font-sans text-[11px] font-bold tracking-[0.16em] uppercase transition-colors shadow-sm">
+                  SUBMIT INQUIRY
+                </button>
+              </div>
+
+            </form>
+          </div>
+
+          <!-- Right Column: Studio / Office Locations (5 cols) -->
+          <div class="lg:col-span-5 flex flex-col text-left pt-4 lg:pt-6">
+            <h3 class="font-serif-title text-[28px] sm:text-[32px] font-bold text-[#63564D] mb-1">
+              Our Studio / Office
+            </h3>
+            <p class="font-sans text-[16px] text-[#524B45] mb-6 font-normal">
+              Contact Our Wedding Planners
+            </p>
+
+            <div class="w-full h-[1px] bg-gray-200 mb-8"></div>
+
+            <!-- London Office -->
+            <div class="mb-9">
+              <h4 class="font-serif-title text-[22px] sm:text-[24px] font-bold text-[#1C1917] mb-2">
+                London
+              </h4>
+              <p class="font-sans text-[14px] text-[#524B45] leading-relaxed font-normal mb-1">
+                14 Mayfair Place, W1J 8AH
+              </p>
+              <p class="font-sans text-[14px] text-[#524B45] leading-relaxed font-normal mb-2">
+                +44 (0) 20 7123 4567
+              </p>
+              <a href="mailto:LONDON@ETHEREALUNION.COM" class="font-sans text-[11.5px] font-bold tracking-[0.16em] text-[#63564D] uppercase hover:underline">
+                LONDON@ETHEREALUNION.COM
+              </a>
+            </div>
+
+            <!-- Paris Office -->
+            <div>
+              <h4 class="font-serif-title text-[22px] sm:text-[24px] font-bold text-[#1C1917] mb-2">
+                Paris
+              </h4>
+              <p class="font-sans text-[14px] text-[#524B45] leading-relaxed font-normal mb-1">
+                22 Rue de la Paix, 75002
+              </p>
+              <p class="font-sans text-[14px] text-[#524B45] leading-relaxed font-normal mb-2">
+                +33 (0) 1 23 45 67 89
+              </p>
+              <a href="mailto:PARIS@ETHEREALUNION.COM" class="font-sans text-[11.5px] font-bold tracking-[0.16em] text-[#63564D] uppercase hover:underline">
+                PARIS@ETHEREALUNION.COM
+              </a>
+            </div>
+
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- START YOUR WEDDING JOURNEY SECTION -->
+    <section class="w-full bg-[#FAF9F6] py-16 sm:py-20 lg:py-24 border-b border-gray-100">
+      <div class="max-w-[1152px] mx-auto px-6 sm:px-8 lg:px-12 text-center">
+        
+        <!-- Section Header -->
+        <h2 class="font-serif-title text-[38px] sm:text-[46px] lg:text-[52px] font-bold text-[#63564D] tracking-tight mb-8 sm:mb-10 text-center">
+          Start Your Wedding Journey
+        </h2>
+
+        <!-- Map Container with Center Overlay Card -->
+        <div class="relative w-full aspect-[2.2/1] sm:aspect-[2.6/1] rounded-2xl overflow-hidden shadow-sm border border-gray-200/50 group max-w-[1080px] mx-auto">
+          <img src="assets/images-02/global-presence-map.webp" alt="Global Presence Map" class="w-full h-full object-cover object-center" />
+          
+          <!-- Translucent Center Pin Overlay -->
+          <div onclick="window.location.href='404.html'" class="absolute inset-0 flex items-center justify-center p-4 cursor-pointer">
+            <div class="bg-white/85 backdrop-blur-md px-7 py-5 sm:px-9 sm:py-6 rounded-xl shadow-lg border border-white/60 flex flex-col items-center justify-center text-center space-y-2 max-w-[280px] sm:max-w-[320px] transition-transform duration-300 group-hover:scale-105">
+              <svg class="w-6 h-6 text-[#524B45]" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="1.5">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
+                <path stroke-linecap="round" stroke-linejoin="round" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
+              </svg>
+              <span class="font-sans text-[13.5px] sm:text-[14.5px] font-medium text-[#524B45]">
+                Discover our global presence
+              </span>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- FREQUENTLY ASKED QUESTIONS SECTION -->
+    <section class="w-full bg-[#FAF9F6] py-20 sm:py-24 lg:py-28 border-b border-gray-100">
+      <div class="max-w-[840px] mx-auto px-6 sm:px-8">
+        
+        <!-- Section Header -->
+        <h2 class="font-serif-title text-[38px] sm:text-[46px] lg:text-[52px] font-bold text-[#63564D] tracking-tight mb-12 sm:mb-14 text-center">
+          Frequently Asked Questions
+        </h2>
+
+        <!-- FAQ Items -->
+        <div class="space-y-6 sm:space-y-8 max-w-[760px] mx-auto">
+          
+          <!-- FAQ 1 -->
+          <div class="border-b border-gray-200/80 pb-6 sm:pb-8">
+            <details class="group" open>
+              <summary class="flex justify-between items-center font-serif-title text-[22px] sm:text-[24px] font-bold text-[#1C1917] hover:text-[#63564D] cursor-pointer list-none transition-colors">
+                <span>What happens next?</span>
+                <span class="transition-transform duration-300 group-open:rotate-180 text-gray-500">
+                  <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7" />
+                  </svg>
+                </span>
+              </summary>
+              <p class="font-sans text-[14.5px] sm:text-[15.5px] text-[#524B45] leading-[1.7] font-normal pt-3 sm:pt-4">
+                After receiving your inquiry, our team will review your details and reach out within 48 hours to schedule a complimentary discovery call to discuss your vision in depth.
+              </p>
+            </details>
+          </div>
+
+          <!-- FAQ 2 -->
+          <div class="border-b border-gray-200/80 pb-6 sm:pb-8">
+            <details class="group" open>
+              <summary class="flex justify-between items-center font-serif-title text-[22px] sm:text-[24px] font-bold text-[#1C1917] hover:text-[#63564D] cursor-pointer list-none transition-colors">
+                <span>Do you travel for destination weddings?</span>
+                <span class="transition-transform duration-300 group-open:rotate-180 text-gray-500">
+                  <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7" />
+                  </svg>
+                </span>
+              </summary>
+              <p class="font-sans text-[14.5px] sm:text-[15.5px] text-[#524B45] leading-[1.7] font-normal pt-3 sm:pt-4">
+                Yes, we specialize in destination weddings globally. We manage all travel logistics for our team and coordinate local vendors to ensure a seamless experience wherever you choose to celebrate.
+              </p>
+            </details>
+          </div>
+
+          <!-- FAQ 3 -->
+          <div class="border-b border-gray-200/80 pb-6 sm:pb-8">
+            <details class="group" open>
+              <summary class="flex justify-between items-center font-serif-title text-[22px] sm:text-[24px] font-bold text-[#1C1917] hover:text-[#63564D] cursor-pointer list-none transition-colors">
+                <span>How far in advance should we book?</span>
+                <span class="transition-transform duration-300 group-open:rotate-180 text-gray-500">
+                  <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7" />
+                  </svg>
+                </span>
+              </summary>
+              <p class="font-sans text-[14.5px] sm:text-[15.5px] text-[#524B45] leading-[1.7] font-normal pt-3 sm:pt-4">
+                We typically recommend booking our services 12 to 18 months in advance, especially for popular dates or complex destination events, to ensure ample time for meticulous planning and securing top-tier vendors.
+              </p>
+            </details>
+          </div>
+
+        </div>
+
+      </div>
+    </section>
+
+  </main>
+
+  <!-- FOOTER -->
+  <footer class="w-full bg-[#FAF9F6] text-[#5A5450] py-16 sm:py-20 border-t border-gray-200/60">
+    <div class="max-w-[1152px] mx-auto px-6 text-center flex flex-col items-center justify-center">
+      
+      <!-- Brand Logo / Title -->
+      <a href="index.html" class="inline-block mb-3">
+        <img src="assets/images-02/logo-stackly.webp" alt="STACKLY" class="h-8 w-auto object-contain" />
+      </a>
+      <p class="font-sans text-[14px] text-[#6E635B] mb-7 font-normal">
+        Crafted for Timeless Romance.
+      </p>
+
+      <!-- Social Icons Row -->
+      <div class="flex items-center justify-center gap-3.5 mb-10">
+        <a href="404.html" class="w-9 h-9 rounded-full border border-[#63564D]/40 flex items-center justify-center text-[#63564D] hover:bg-[#63564D] hover:text-white transition-colors" aria-label="Facebook">
+          <svg class="w-4 h-4 fill-current" viewBox="0 0 24 24"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
+        </a>
+        <a href="404.html" class="w-9 h-9 rounded-full border border-[#63564D]/40 flex items-center justify-center text-[#63564D] hover:bg-[#63564D] hover:text-white transition-colors" aria-label="Twitter">
+          <svg class="w-4 h-4 fill-current" viewBox="0 0 24 24"><path d="M23.953 4.57a10 10 0 01-2.825.775 4.958 4.958 0 002.163-2.723c-.951.555-2.005.959-3.127 1.184a4.92 4.92 0 00-8.384 4.482C7.69 8.095 4.067 6.13 1.64 3.162a4.822 4.822 0 00-.666 2.475c0 1.71.87 3.213 2.188 4.096a4.904 4.904 0 01-2.228-.616v.06a4.923 4.923 0 003.946 4.827 4.996 4.996 0 01-2.212.085 4.936 4.936 0 004.604 3.417 9.867 9.867 0 01-6.102 2.105c-.39 0-.779-.023-1.17-.067a13.995 13.995 0 007.557 2.209c9.053 0 13.998-7.496 13.998-13.985 0-.21 0-.42-.015-.63A9.936 9.936 0 0024 4.59z"/></svg>
+        </a>
+        <a href="404.html" class="w-9 h-9 rounded-full border border-[#63564D]/40 flex items-center justify-center text-[#63564D] hover:bg-[#63564D] hover:text-white transition-colors" aria-label="YouTube">
+          <svg class="w-4 h-4 fill-current" viewBox="0 0 24 24"><path d="M23.498 6.186a3.016 3.016 0 00-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 00.502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 002.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 002.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>
+        </a>
+        <a href="404.html" class="w-9 h-9 rounded-full border border-[#63564D]/40 flex items-center justify-center text-[#63564D] hover:bg-[#63564D] hover:text-white transition-colors" aria-label="Instagram">
+          <svg class="w-4 h-4 fill-current" viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
+        </a>
+      </div>
+
+      <!-- Footer Navigation Links -->
+      <div class="flex flex-wrap justify-center gap-x-6 gap-y-3 text-[14px] font-normal mb-10 text-[#524B45]">
+        <a href="index.html" class="hover:underline">Home</a>
+        <a href="about.html" class="hover:underline">About Us</a>
+        <a href="weddings.html" class="hover:underline">Weddings</a>
+        <a href="services.html" class="hover:underline">Services</a>
+        <a href="team.html" class="hover:underline">Our Team</a>
+        <a href="inspiration.html" class="hover:underline">Inspiration</a>
+        <a href="testimonials.html" class="hover:underline">Testimonials</a>
+        <a href="contact.html" class="hover:underline">Contact Us</a>
+      </div>
+
+      <!-- Copyright Text -->
+      <div class="text-[12px] text-[#7A7067] pt-4 border-t border-gray-200/50 w-full max-w-[600px] mx-auto">
+        &copy; 2026 STACKLY. Crafted for Timeless Romance.
+      </div>
+
+    </div>
+  </footer>
+
+  <!-- MOBILE MENU & MODALS -->
+  <div id="mobile-menu" class="hidden fixed inset-0 z-50 flex flex-col justify-between bg-white/95 backdrop-blur-xl px-6 py-6">
+    <div>
+      <div class="flex items-center justify-between mb-8 pb-4 border-b border-gray-100">
+        <img src="assets/images-02/logo-stackly.webp" alt="STACKLY" class="h-6 w-auto" />
+        <button id="close-mobile-menu" class="p-2 text-gray-500"><svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" /></svg></button>
+      </div>
+      <nav class="flex flex-col gap-4 text-[16px] font-medium text-gray-700">
+        <a href="index.html" class="py-2 pl-3">Home</a>
+        <a href="about.html" class="py-2 pl-3">About Us</a>
+        <a href="weddings.html" class="py-2 pl-3">Weddings</a>
+        <a href="services.html" class="py-2 pl-3">Services</a>
+        <a href="inspiration.html" class="py-2 pl-3">Inspiration</a>
+        <a href="testimonials.html" class="py-2 pl-3">Testimonials</a>
+        <a href="contact.html" class="py-2 pl-3 text-[#18181B] font-bold border-l-4 border-[#18181B]">Contact Us</a>
+      </nav>
+    </div>
+  </div>
+
+  <div id="planning-modal" class="hidden fixed inset-0 z-50 modal-backdrop items-center justify-center p-4">
+    <div class="bg-white rounded-2xl max-w-lg w-full p-7 sm:p-8 relative shadow-2xl border border-gray-100">
+      <button onclick="closeModal('planning-modal')" class="absolute top-5 right-5 text-gray-400 p-1"><svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" /></svg></button>
+      <div class="text-center mb-6"><h3 class="font-serif-title text-2xl font-bold text-[#1C1917]">Start Planning Your Dream Day</h3></div>
+      <form id="planning-form" class="space-y-4 text-left">
+        <div><input type="text" required placeholder="Your Name" class="w-full px-3.5 py-2.5 text-sm rounded-lg border border-gray-200" /></div>
+        <div><input type="email" required placeholder="Email Address" class="w-full px-3.5 py-2.5 text-sm rounded-lg border border-gray-200" /></div>
+        <button type="submit" class="w-full py-3 bg-[#5C524A] text-white text-xs font-bold uppercase tracking-[0.12em] rounded-lg">Request Consultation</button>
+      </form>
+    </div>
+  </div>
+
+  <div id="login-modal" class="hidden fixed inset-0 z-50 modal-backdrop items-center justify-center p-4">
+    <div class="relative w-full max-w-[460px] bg-[#FAF9F7]/95 backdrop-blur-md rounded-xl p-7 sm:p-9 shadow-2xl border border-white/80 transition-all duration-300">
+      <button onclick="closeModal('login-modal')" class="absolute top-4 right-4 text-gray-400 hover:text-gray-600 p-1"><svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" /></svg></button>
+      
+      <!-- Card Header -->
+      <div class="text-center mb-6">
+        <h3 class="font-serif-title text-[38px] sm:text-[44px] font-bold text-[#5C524A] tracking-tight mb-1 leading-none">
+          Welcome Back
+        </h3>
+        <p class="font-sans text-[13px] sm:text-[13.5px] text-[#6B625A] font-normal">
+          Sign in to continue planning your perfect celebration.
+        </p>
+      </div>
+
+      <!-- Form -->
+      <form id="login-form" onsubmit="event.preventDefault(); window.location.href='dashboard.html';" class="space-y-3.5 text-left">
+        <div>
+          <input type="email" required placeholder="Enter your email address" class="w-full px-4 py-2.5 bg-white border border-gray-200/90 rounded-md focus:outline-none focus:border-[#5C524A] text-[13px] text-[#1C1917] placeholder-gray-400/90" />
+        </div>
+        <div class="flex items-center justify-between pt-0.5 pb-0.5">
+          <div class="flex items-center gap-2">
+            <input type="checkbox" id="modal-remember" class="w-3.5 h-3.5 rounded border-gray-300 text-[#5C524A] focus:ring-[#5C524A] cursor-pointer" />
+            <label for="modal-remember" class="font-sans text-[10.5px] font-bold tracking-[0.12em] text-[#6B625A] uppercase cursor-pointer select-none">
+              REMEMBER ME
+            </label>
+          </div>
+          <a href="404.html" class="font-sans text-[11.5px] font-semibold text-[#7A7067] hover:text-[#1C1917] underline">
+            Forgot Password?
+          </a>
+        </div>
+        <div>
+          <input type="password" required placeholder="Enter your password" class="w-full px-4 py-2.5 bg-white border border-gray-200/90 rounded-md focus:outline-none focus:border-[#5C524A] text-[13px] text-[#1C1917] placeholder-gray-400/90" />
+        </div>
+        <button type="submit" class="w-full py-3 bg-[#685D54] hover:bg-[#544B43] text-white font-sans text-[11px] font-bold tracking-[0.18em] uppercase transition-colors shadow-sm">
+          LOG IN
+        </button>
+      </form>
+
+      <div class="text-center mt-5 pt-1">
+        <p class="font-sans text-[12px] text-[#6B625A] font-normal">
+          New to us? <button onclick="closeModal('login-modal'); openModal('signup-modal');" class="font-bold underline text-[#5C524A] hover:text-[#1C1917]">Create an Account</button>
+        </p>
+      </div>
+    </div>
+  </div>
+
+  <div id="signup-modal" class="hidden fixed inset-0 z-50 modal-backdrop items-center justify-center p-4">
+    <div class="relative w-full max-w-[460px] bg-[#FAF9F7]/95 backdrop-blur-md rounded-xl p-7 sm:p-9 shadow-2xl border border-white/80 transition-all duration-300">
+      <button onclick="closeModal('signup-modal')" class="absolute top-4 right-4 text-gray-400 hover:text-gray-600 p-1"><svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" /></svg></button>
+      
+      <!-- Card Header -->
+      <div class="text-center mb-6">
+        <h3 class="font-serif-title text-[38px] sm:text-[44px] font-bold text-[#5C524A] tracking-tight mb-1 leading-none">
+          Welcome !
+        </h3>
+        <p class="font-sans text-[13px] sm:text-[13.5px] text-[#6B625A] font-normal">
+          Begin your bespoke journey.
+        </p>
+      </div>
+
+      <!-- Form -->
+      <form id="signup-form" onsubmit="event.preventDefault(); window.location.href='dashboard.html';" class="space-y-3.5 text-left">
+        <div>
+          <input type="text" required placeholder="Enter your full name" class="w-full px-4 py-2.5 bg-white border border-gray-200/90 rounded-md focus:outline-none focus:border-[#5C524A] text-[13px] text-[#1C1917] placeholder-gray-400/90" />
+        </div>
+        <div>
+          <input type="email" required placeholder="Enter your email address" class="w-full px-4 py-2.5 bg-white border border-gray-200/90 rounded-md focus:outline-none focus:border-[#5C524A] text-[13px] text-[#1C1917] placeholder-gray-400/90" />
+        </div>
+        <div>
+          <input type="password" required placeholder="Create a password" class="w-full px-4 py-2.5 bg-white border border-gray-200/90 rounded-md focus:outline-none focus:border-[#5C524A] text-[13px] text-[#1C1917] placeholder-gray-400/90" />
+        </div>
+        <div>
+          <input type="password" required placeholder="Confirm your password" class="w-full px-4 py-2.5 bg-white border border-gray-200/90 rounded-md focus:outline-none focus:border-[#5C524A] text-[13px] text-[#1C1917] placeholder-gray-400/90" />
+        </div>
+        <div class="flex items-center gap-2 pt-0.5 pb-1">
+          <input type="checkbox" id="modal-terms" required class="w-3.5 h-3.5 rounded border-gray-300 text-[#5C524A] focus:ring-[#5C524A] cursor-pointer" />
+          <label for="modal-terms" class="font-sans text-[11.5px] text-[#6B625A] cursor-pointer select-none">
+            I agree to the <a href="#" class="underline hover:text-[#1C1917]">Terms of Service</a> &amp; <a href="#" class="underline hover:text-[#1C1917]">Privacy Policy</a>
+          </label>
+        </div>
+        <button type="submit" class="w-full py-3 bg-[#685D54] hover:bg-[#544B43] text-white font-sans text-[11px] font-bold tracking-[0.18em] uppercase transition-colors shadow-sm">
+          CREATE ACCOUNT
+        </button>
+      </form>
+
+      <div class="text-center mt-5 pt-1">
+        <p class="font-sans text-[12px] text-[#6B625A] font-normal">
+          Already have an account? <a href="login.html" class="font-bold tracking-[0.06em] underline text-[#5C524A] hover:text-[#1C1917] uppercase text-[11px]">LOG IN</a>
+        </p>
+      </div>
+    </div>
+  </div>
+
+  <div id="toast" class="fixed bottom-6 right-6 z-50 transform translate-y-24 opacity-0 pointer-events-none bg-[#1C1917] text-white px-5 py-3.5 rounded-xl shadow-2xl flex items-center gap-3 border border-gray-800">
+    <div class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></div>
+    <span id="toast-message" class="text-xs sm:text-sm font-medium">Notification message</span>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>

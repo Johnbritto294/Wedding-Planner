@@ -1,0 +1,600 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Vendor Dashboard - STACKLY</title>
+
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <!-- Google Fonts: Playfair Display & Plus Jakarta Sans -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400;1,600;1,700&family=Plus+Jakarta+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet" />
+
+  <style>
+    .font-serif-title { font-family: 'Playfair Display', Georgia, serif; }
+    .custom-scrollbar::-webkit-scrollbar { height: 6px; width: 6px; }
+    .custom-scrollbar::-webkit-scrollbar-track { background: #F1EFEA; border-radius: 10px; }
+    .custom-scrollbar::-webkit-scrollbar-thumb { background: #C5BBB0; border-radius: 10px; }
+    .custom-scrollbar::-webkit-scrollbar-thumb:hover { background: #685D54; }
+
+    .sidebar-link-active {
+      background-color: #F5ECE3 !important;
+      color: #685D54 !important;
+      font-weight: 700 !important;
+      border: 1px solid rgba(104, 93, 84, 0.2) !important;
+      box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+    }
+  </style>
+    <!-- Awwwards / Apple-Grade Motion Libraries (Lenis Smooth Scroll + GSAP + ScrollTrigger) -->
+  <link rel="stylesheet" href="https://unpkg.com/lenis@1.1.18/dist/lenis.css" />
+  <script src="https://unpkg.com/lenis@1.1.18/dist/lenis.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+</head>
+<body class="bg-[#F7F6F4] font-sans antialiased text-[#1C1917] min-h-screen flex flex-col selection:bg-[#5C524A] selection:text-white">
+
+  <!-- TOP DASHBOARD HEADER NAVIGATION -->
+  <header class="w-full bg-white border-b border-gray-200/80 sticky top-0 z-30 shadow-sm">
+    <div class="max-w-[1536px] mx-auto px-4 sm:px-6 lg:px-8 h-[72px] flex items-center justify-between gap-4">
+
+      <!-- Left: Logo & Sidebar Toggle Button -->
+      <div class="flex items-center gap-3 sm:gap-4">
+        <button id="sidebar-toggle-btn" class="lg:hidden p-2 rounded-lg text-gray-600 hover:text-gray-900 hover:bg-gray-100 transition-colors" aria-label="Toggle Sidebar Menu">
+          <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" /></svg>
+        </button>
+        <a href="index.html" class="flex items-center gap-2 group select-none">
+          <img src="assets/images-02/logo-stackly.webp" alt="STACKLY" class="h-7 sm:h-8 w-auto object-contain transform transition-transform group-hover:scale-105" />
+        </a>
+        <span class="hidden md:inline-flex items-center px-3 py-1 rounded-full bg-[#685D54] text-white text-[11px] font-bold tracking-[0.14em] uppercase">Vendor</span>
+      </div>
+
+      <!-- Right: Notifications & Profile Menu -->
+      <div class="flex items-center gap-3 sm:gap-5">
+
+        <!-- Notification Bell -->
+        <button class="relative p-2 rounded-full text-gray-500 hover:text-gray-800 hover:bg-gray-100 transition-colors" title="Notifications">
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9" /></svg>
+          <span class="absolute top-1.5 right-1.5 w-2 h-2 rounded-full bg-amber-600 ring-2 ring-white animate-ping"></span>
+          <span class="absolute top-1.5 right-1.5 w-2 h-2 rounded-full bg-amber-600 ring-2 ring-white"></span>
+        </button>
+
+        <!-- Profile Dropdown Container -->
+        <div class="relative">
+          <button id="user-profile-menu-btn" class="flex items-center gap-2.5 p-1 rounded-full hover:bg-gray-100 transition-colors">
+            <img src="assets/images-02/team-eleanor-vance.webp" alt="Vendor Profile" class="w-9 h-9 rounded-full object-cover border border-[#685D54]/30 shadow-sm" />
+            <div class="hidden sm:flex flex-col text-left">
+              <span id="profile-email-large" class="font-bold text-[13px] text-[#1C1917] leading-tight">Vendor Account</span>
+              <span class="text-[11px] text-[#7A7067] leading-tight">Vendor Account</span>
+            </div>
+            <svg class="w-4 h-4 text-gray-400 ml-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" /></svg>
+          </button>
+
+          <!-- Dropdown Menu Box -->
+          <div id="profile-dropdown-menu" class="hidden absolute right-0 mt-2 w-52 bg-white rounded-xl shadow-xl border border-gray-100 py-2 z-50 transition-all">
+            <div class="px-4 py-2.5 border-b border-gray-100 sm:hidden">
+              <p id="profile-email-small" class="font-bold text-[13px] text-[#1C1917]">Vendor Account</p>
+              <p class="text-[11px] text-[#7A7067]">Vendor Account</p>
+            </div>
+            <a href="javascript:void(0)" onclick="goTo404()" class="flex items-center gap-2.5 px-4 py-2 text-[13px] text-gray-700 hover:bg-[#FAF9F6] hover:text-[#5C524A]">
+              <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" /></svg>
+              View Main Site
+            </a>
+            <a href="javascript:void(0)" onclick="goTo404()" class="flex items-center gap-2.5 px-4 py-2 text-[13px] text-gray-700 hover:bg-[#FAF9F6] hover:text-[#5C524A]">
+              <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z" /><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" /></svg>
+              Account Settings
+            </a>
+            <div class="my-1 border-t border-gray-100"></div>
+            <button onclick="handleLogout()" class="w-full flex items-center gap-2.5 px-4 py-2 text-[13px] text-red-600 hover:bg-red-50 text-left font-medium">
+              <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1" /></svg>
+              Log Out
+            </button>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </header>
+
+  <!-- VENDOR DASHBOARD MAIN BODY LAYOUT (SIDEBAR + CONTENT) -->
+  <div class="flex-grow flex w-full max-w-[1536px] mx-auto">
+
+    <!-- LEFT SIDEBAR NAVIGATION MENU -->
+    <aside id="sidebar-drawer" class="fixed lg:static inset-y-0 left-0 z-20 w-64 bg-white border-r border-gray-200/80 transform -translate-x-full lg:translate-x-0 transition-transform duration-300 flex flex-col justify-between pt-6 pb-6 shadow-xl lg:shadow-none">
+
+      <!-- Top Nav List -->
+      <div class="px-4 space-y-1">
+        <div class="px-3 pb-3 text-[11px] font-bold tracking-[0.16em] uppercase text-[#7A7067]">Vendor Menu</div>
+
+        <!-- Dashboard Item -->
+        <a href="javascript:void(0)" onclick="switchSidebarTab('dashboard')" id="nav-btn-dashboard" class="flex items-center justify-between px-3.5 py-2.5 rounded-xl text-[13.5px] font-semibold text-[#685D54] bg-[#F5ECE3]/80 border border-[#685D54]/20 transition-all shadow-xs sidebar-link-active">
+          <div class="flex items-center gap-3">
+            <svg class="w-5 h-5 text-[#685D54]" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="1.8"><path stroke-linecap="round" stroke-linejoin="round" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" /></svg>
+            Overview
+          </div>
+          <span class="w-2 h-2 rounded-full bg-[#685D54] tab-dot"></span>
+        </a>
+
+        <!-- Bookings Item -->
+        <a href="javascript:void(0)" onclick="switchSidebarTab('bookings')" id="nav-btn-bookings" class="flex items-center justify-between px-3.5 py-2.5 rounded-xl text-[13.5px] font-medium text-gray-600 hover:text-[#1C1917] hover:bg-[#FAF9F6] transition-colors group">
+          <div class="flex items-center gap-3">
+            <svg class="w-5 h-5 text-gray-400 group-hover:text-[#685D54]" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="1.8"><path stroke-linecap="round" stroke-linejoin="round" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" /></svg>
+            Bookings
+          </div>
+          <span class="w-2 h-2 rounded-full bg-[#685D54] hidden tab-dot"></span>
+        </a>
+
+        <!-- Leads / Inquiries Item -->
+        <a href="javascript:void(0)" onclick="switchSidebarTab('leads')" id="nav-btn-leads" class="flex items-center justify-between px-3.5 py-2.5 rounded-xl text-[13.5px] font-medium text-gray-600 hover:text-[#1C1917] hover:bg-[#FAF9F6] transition-colors group">
+          <div class="flex items-center gap-3">
+            <svg class="w-5 h-5 text-gray-400 group-hover:text-[#685D54]" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="1.8"><path stroke-linecap="round" stroke-linejoin="round" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" /></svg>
+            Inquiries
+          </div>
+          <span class="w-2 h-2 rounded-full bg-[#685D54] hidden tab-dot"></span>
+        </a>
+
+        <!-- Services Item -->
+        <a href="javascript:void(0)" onclick="switchSidebarTab('services')" id="nav-btn-services" class="flex items-center justify-between px-3.5 py-2.5 rounded-xl text-[13.5px] font-medium text-gray-600 hover:text-[#1C1917] hover:bg-[#FAF9F6] transition-colors group">
+          <div class="flex items-center gap-3">
+            <svg class="w-5 h-5 text-gray-400 group-hover:text-[#685D54]" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="1.8"><path stroke-linecap="round" stroke-linejoin="round" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" /></svg>
+            Services
+          </div>
+          <span class="w-2 h-2 rounded-full bg-[#685D54] hidden tab-dot"></span>
+        </a>
+
+        <!-- Availability Item -->
+        <a href="javascript:void(0)" onclick="switchSidebarTab('availability')" id="nav-btn-availability" class="flex items-center justify-between px-3.5 py-2.5 rounded-xl text-[13.5px] font-medium text-gray-600 hover:text-[#1C1917] hover:bg-[#FAF9F6] transition-colors group">
+          <div class="flex items-center gap-3">
+            <svg class="w-5 h-5 text-gray-400 group-hover:text-[#685D54]" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="1.8"><path stroke-linecap="round" stroke-linejoin="round" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" /></svg>
+            Availability
+          </div>
+          <span class="w-2 h-2 rounded-full bg-[#685D54] hidden tab-dot"></span>
+        </a>
+
+        <!-- Earnings Item -->
+        <a href="javascript:void(0)" onclick="switchSidebarTab('earnings')" id="nav-btn-earnings" class="flex items-center justify-between px-3.5 py-2.5 rounded-xl text-[13.5px] font-medium text-gray-600 hover:text-[#1C1917] hover:bg-[#FAF9F6] transition-colors group">
+          <div class="flex items-center gap-3">
+            <svg class="w-5 h-5 text-gray-400 group-hover:text-[#685D54]" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="1.8"><path stroke-linecap="round" stroke-linejoin="round" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
+            Earnings
+          </div>
+          <span class="w-2 h-2 rounded-full bg-[#685D54] hidden tab-dot"></span>
+        </a>
+
+        <!-- Settings Item -->
+        <a href="javascript:void(0)" onclick="switchSidebarTab('settings')" id="nav-btn-settings" class="flex items-center justify-between px-3.5 py-2.5 rounded-xl text-[13.5px] font-medium text-gray-600 hover:text-[#1C1917] hover:bg-[#FAF9F6] transition-colors group">
+          <div class="flex items-center gap-3">
+            <svg class="w-5 h-5 text-gray-400 group-hover:text-[#685D54]" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="1.8"><path stroke-linecap="round" stroke-linejoin="round" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z" /><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" /></svg>
+            Settings
+          </div>
+          <span class="w-2 h-2 rounded-full bg-[#685D54] hidden tab-dot"></span>
+        </a>
+      </div>
+
+    </aside>
+
+    <!-- MAIN CONTENT AREA -->
+    <main class="flex-1 min-w-0 p-4 sm:p-6 lg:p-8 space-y-8">
+
+      <!-- ================= 1. OVERVIEW TAB CONTENT ================= -->
+      <div id="tab-content-dashboard" class="tab-pane space-y-8 animate-fade-in">
+
+        <!-- HERO WELCOME BANNER -->
+        <div class="relative w-full rounded-2xl overflow-hidden shadow-md group">
+          <img src="assets/images-02/venue-selection-management.webp" alt="Welcome Background" class="w-full h-52 sm:h-60 object-cover object-center transform group-hover:scale-105 transition-transform duration-700" />
+          <div class="absolute inset-0 bg-gradient-to-r from-black/80 via-black/50 to-transparent"></div>
+          <div class="absolute inset-0 p-6 sm:p-8 flex flex-col justify-center items-start space-y-3">
+            <span class="px-3.5 py-1 bg-white/20 backdrop-blur-md rounded-full text-white text-[11px] font-bold uppercase tracking-[0.18em]">Vendor Portal</span>
+            <h1 class="font-serif-title text-white text-2xl sm:text-3xl font-bold">Welcome back, Vendor</h1>
+            <p class="text-white/85 text-[13px] sm:text-[14px] max-w-lg leading-relaxed">Manage your bookings, respond to couple inquiries, and keep your services &amp; availability up to date.</p>
+          </div>
+        </div>
+
+        <!-- STAT CARDS -->
+        <div class="grid grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6">
+          <div class="bg-white rounded-2xl p-5 border border-gray-200/80 shadow-sm">
+            <div class="flex items-center justify-between mb-3">
+              <span class="text-[11px] font-bold tracking-[0.12em] text-[#7A7067] uppercase">Upcoming Bookings</span>
+              <span class="text-[#685D54]"><svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="1.8"><path stroke-linecap="round" stroke-linejoin="round" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" /></svg></span>
+            </div>
+            <p class="font-serif-title text-3xl font-bold text-[#1C1917]">12</p>
+            <p class="text-[12px] text-[#7A7067] mt-1">3 this week</p>
+          </div>
+          <div class="bg-white rounded-2xl p-5 border border-gray-200/80 shadow-sm">
+            <div class="flex items-center justify-between mb-3">
+              <span class="text-[11px] font-bold tracking-[0.12em] text-[#7A7067] uppercase">New Inquiries</span>
+              <span class="text-[#685D54]"><svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="1.8"><path stroke-linecap="round" stroke-linejoin="round" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" /></svg></span>
+            </div>
+            <p class="font-serif-title text-3xl font-bold text-[#1C1917]">8</p>
+            <p class="text-[12px] text-[#7A7067] mt-1">4 unread</p>
+          </div>
+          <div class="bg-white rounded-2xl p-5 border border-gray-200/80 shadow-sm">
+            <div class="flex items-center justify-between mb-3">
+              <span class="text-[11px] font-bold tracking-[0.12em] text-[#7A7067] uppercase">Active Services</span>
+              <span class="text-[#685D54]"><svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="1.8"><path stroke-linecap="round" stroke-linejoin="round" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" /></svg></span>
+            </div>
+            <p class="font-serif-title text-3xl font-bold text-[#1C1917]">6</p>
+            <p class="text-[12px] text-[#7A7067] mt-1">3 featured</p>
+          </div>
+          <div class="bg-white rounded-2xl p-5 border border-gray-200/80 shadow-sm">
+            <div class="flex items-center justify-between mb-3">
+              <span class="text-[11px] font-bold tracking-[0.12em] text-[#7A7067] uppercase">Total Earnings</span>
+              <span class="text-emerald-600"><svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="1.8"><path stroke-linecap="round" stroke-linejoin="round" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z" /></svg></span>
+            </div>
+            <p class="font-serif-title text-3xl font-bold text-[#1C1917]">$24,500</p>
+            <p class="text-[12px] text-emerald-600 font-semibold mt-1">+18% this month</p>
+          </div>
+        </div>
+
+        <!-- RECENT BOOKINGS TABLE -->
+        <div class="bg-white rounded-2xl border border-gray-200/80 shadow-sm overflow-hidden">
+          <div class="flex items-center justify-between px-6 py-5 border-b border-gray-100">
+            <h2 class="font-serif-title text-lg font-bold text-[#1C1917]">Recent Bookings</h2>
+            <button onclick="goTo404()" class="text-[12px] font-bold uppercase tracking-wider text-[#685D54] hover:underline">View All</button>
+          </div>
+          <div class="overflow-x-auto">
+
+            <!-- VENDOR DASHBOARD BOOKINGS TABLE START -->
+            <table class="w-full text-left text-[13.5px]">
+              <thead class="bg-[#FAF9F6] text-[#7A7067] text-[11px] uppercase tracking-[0.1em]">
+                <tr>
+                  <th class="py-3.5 px-6 font-bold">Couple</th>
+                  <th class="py-3.5 px-3 font-bold">Service</th>
+                  <th class="py-3.5 px-3 font-bold">Wedding Date</th>
+                  <th class="py-3.5 px-3 font-bold">Amount</th>
+                  <th class="py-3.5 px-6 text-right font-bold">Status</th>
+                </tr>
+              </thead>
+              <tbody id="bookings-body" class="divide-y divide-gray-100">
+                <tr class="hover:bg-[#FAF9F6] transition-colors">
+                  <td class="py-4 px-6 font-semibold text-[#1C1917]">Sophia &amp; Daniel</td>
+                  <td class="py-4 px-3 text-gray-600">Venue Booking</td>
+                  <td class="py-4 px-3 text-gray-600">12 Sep 2026</td>
+                  <td class="py-4 px-3 font-medium text-[#685D54]">$4,200</td>
+                  <td class="py-4 px-6 text-right"><span class="inline-block px-3.5 py-1 rounded-full text-[11.5px] font-bold bg-emerald-100 text-emerald-700">Confirmed</span></td>
+                </tr>
+                <tr class="hover:bg-[#FAF9F6] transition-colors">
+                  <td class="py-4 px-6 font-semibold text-[#1C1917]">Isabella &amp; Liam</td>
+                  <td class="py-4 px-3 text-gray-600">Catering &amp; Menu</td>
+                  <td class="py-4 px-3 text-gray-600">03 Oct 2026</td>
+                  <td class="py-4 px-3 font-medium text-[#685D54]">$6,800</td>
+                  <td class="py-4 px-6 text-right"><span class="inline-block px-3.5 py-1 rounded-full text-[11.5px] font-bold bg-amber-100 text-amber-700">Pending Review</span></td>
+                </tr>
+                <tr class="hover:bg-[#FAF9F6] transition-colors">
+                  <td class="py-4 px-6 font-semibold text-[#1C1917]">Amelia &amp; Noah</td>
+                  <td class="py-4 px-3 text-gray-600">Photography</td>
+                  <td class="py-4 px-3 text-gray-600">21 Nov 2026</td>
+                  <td class="py-4 px-3 font-medium text-[#685D54]">$3,950</td>
+                  <td class="py-4 px-6 text-right"><span class="inline-block px-3.5 py-1 rounded-full text-[11.5px] font-bold bg-sky-100 text-sky-700">Preparing</span></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- ================= 2. BOOKINGS TAB CONTENT ================= -->
+      <div id="tab-content-bookings" class="tab-pane hidden space-y-6 animate-fade-in">
+        <div>
+          <h1 class="font-serif-title text-2xl font-bold text-[#1C1917]">Bookings</h1>
+          <p class="text-[13.5px] text-[#7A7067]">All confirmed and in-progress bookings for your services.</p>
+        </div>
+        <div class="bg-white rounded-2xl border border-gray-200/80 shadow-sm overflow-hidden">
+          <div class="overflow-x-auto">
+            <table class="w-full text-left text-[13.5px]">
+              <thead class="bg-[#FAF9F6] text-[#7A7067] text-[11px] uppercase tracking-[0.1em]">
+                <tr>
+                  <th class="py-3.5 px-6 font-bold">Booking ID</th>
+                  <th class="py-3.5 px-3 font-bold">Couple</th>
+                  <th class="py-3.5 px-3 font-bold">Service</th>
+                  <th class="py-3.5 px-3 font-bold">Wedding Date</th>
+                  <th class="py-3.5 px-3 font-bold">Amount</th>
+                  <th class="py-3.5 px-6 text-right font-bold">Status</th>
+                </tr>
+              </thead>
+              <tbody class="divide-y divide-gray-100">
+                <tr class="hover:bg-[#FAF9F6] transition-colors"><td class="py-4 px-6 font-bold text-[#685D54]">BK-1001</td><td class="py-4 px-3 font-semibold">Sophia &amp; Daniel</td><td class="py-4 px-3 text-gray-600">Venue Booking</td><td class="py-4 px-3">12 Sep 2026</td><td class="py-4 px-3 font-medium">$4,200</td><td class="py-4 px-6 text-right"><span class="inline-block px-3.5 py-1 rounded-full text-[11.5px] font-bold bg-emerald-100 text-emerald-700">Confirmed</span></td></tr>
+                <tr class="hover:bg-[#FAF9F6] transition-colors"><td class="py-4 px-6 font-bold text-[#685D54]">BK-1002</td><td class="py-4 px-3 font-semibold">Isabella &amp; Liam</td><td class="py-4 px-3 text-gray-600">Catering &amp; Menu</td><td class="py-4 px-3">03 Oct 2026</td><td class="py-4 px-3 font-medium">$6,800</td><td class="py-4 px-6 text-right"><span class="inline-block px-3.5 py-1 rounded-full text-[11.5px] font-bold bg-amber-100 text-amber-700">Pending Review</span></td></tr>
+                <tr class="hover:bg-[#FAF9F6] transition-colors"><td class="py-4 px-6 font-bold text-[#685D54]">BK-1003</td><td class="py-4 px-3 font-semibold">Amelia &amp; Noah</td><td class="py-4 px-3 text-gray-600">Photography</td><td class="py-4 px-3">21 Nov 2026</td><td class="py-4 px-3 font-medium">$3,950</td><td class="py-4 px-6 text-right"><span class="inline-block px-3.5 py-1 rounded-full text-[11.5px] font-bold bg-sky-100 text-sky-700">Preparing</span></td></tr>
+                <tr class="hover:bg-[#FAF9F6] transition-colors"><td class="py-4 px-6 font-bold text-[#685D54]">BK-1004</td><td class="py-4 px-3 font-semibold">Charlotte &amp; Ethan</td><td class="py-4 px-3 text-gray-600">Floral Design</td><td class="py-4 px-3">15 Jan 2027</td><td class="py-4 px-3 font-medium">$2,450</td><td class="py-4 px-6 text-right"><span class="inline-block px-3.5 py-1 rounded-full text-[11.5px] font-bold bg-emerald-100 text-emerald-700">Confirmed</span></td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
+      <!-- ================= 3. INQUIRIES TAB CONTENT ================= -->
+      <div id="tab-content-leads" class="tab-pane hidden space-y-6 animate-fade-in">
+        <div>
+          <h1 class="font-serif-title text-2xl font-bold text-[#1C1917]">Inquiries</h1>
+          <p class="text-[13.5px] text-[#7A7067]">New leads from couples interested in your services.</p>
+        </div>
+        <div class="space-y-3">
+          <div class="bg-white rounded-xl border border-gray-200/80 p-5 shadow-sm flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+            <div class="flex items-center gap-4">
+              <div class="w-11 h-11 rounded-full bg-[#F5ECE3] text-[#685D54] flex items-center justify-center font-serif-title font-bold">SD</div>
+              <div>
+                <p class="font-bold text-[#1C1917]">Sophia &amp; Daniel</p>
+                <p class="text-[12.5px] text-[#7A7067]">Venue inquiry · Wedding 12 Sep 2026 · 180 guests</p>
+              </div>
+            </div>
+            <div class="flex items-center gap-2">
+              <span class="inline-block px-3 py-1 rounded-full text-[11px] font-bold bg-amber-100 text-amber-700">New</span>
+              <button onclick="goTo404()" class="px-4 py-2 bg-[#685D54] hover:bg-[#544B43] text-white text-[11px] font-bold uppercase tracking-wider rounded-lg transition-colors">Respond</button>
+            </div>
+          </div>
+          <div class="bg-white rounded-xl border border-gray-200/80 p-5 shadow-sm flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+            <div class="flex items-center gap-4">
+              <div class="w-11 h-11 rounded-full bg-[#F5ECE3] text-[#685D54] flex items-center justify-center font-serif-title font-bold">IL</div>
+              <div>
+                <p class="font-bold text-[#1C1917]">Isabella &amp; Liam</p>
+                <p class="text-[12.5px] text-[#7A7067]">Catering inquiry · Wedding 03 Oct 2026 · 220 guests</p>
+              </div>
+            </div>
+            <div class="flex items-center gap-2">
+              <span class="inline-block px-3 py-1 rounded-full text-[11px] font-bold bg-gray-100 text-gray-600">Viewed</span>
+              <button onclick="goTo404()" class="px-4 py-2 bg-[#685D54] hover:bg-[#544B43] text-white text-[11px] font-bold uppercase tracking-wider rounded-lg transition-colors">Respond</button>
+            </div>
+          </div>
+          <div class="bg-white rounded-xl border border-gray-200/80 p-5 shadow-sm flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+            <div class="flex items-center gap-4">
+              <div class="w-11 h-11 rounded-full bg-[#F5ECE3] text-[#685D54] flex items-center justify-center font-serif-title font-bold">AN</div>
+              <div>
+                <p class="font-bold text-[#1C1917]">Amelia &amp; Noah</p>
+                <p class="text-[12.5px] text-[#7A7067]">Photography inquiry · Wedding 21 Nov 2026 · 150 guests</p>
+              </div>
+            </div>
+            <div class="flex items-center gap-2">
+              <span class="inline-block px-3 py-1 rounded-full text-[11px] font-bold bg-amber-100 text-amber-700">New</span>
+              <button onclick="goTo404()" class="px-4 py-2 bg-[#685D54] hover:bg-[#544B43] text-white text-[11px] font-bold uppercase tracking-wider rounded-lg transition-colors">Respond</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ================= 4. SERVICES TAB CONTENT ================= -->
+      <div id="tab-content-services" class="tab-pane hidden space-y-6 animate-fade-in">
+        <div class="flex items-center justify-between">
+          <div>
+            <h1 class="font-serif-title text-2xl font-bold text-[#1C1917]">Services</h1>
+            <p class="text-[13.5px] text-[#7A7067]">Manage the services you offer to couples.</p>
+          </div>
+          <button onclick="goTo404()" class="px-5 py-2.5 bg-[#685D54] hover:bg-[#544B43] text-white text-xs font-bold uppercase tracking-wider rounded-xl transition-all shadow-sm">Add Service</button>
+        </div>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+          <div class="bg-white rounded-2xl overflow-hidden border border-gray-200/80 shadow-sm">
+            <img src="assets/images-02/venue-selection-management.webp" alt="Venue" class="w-full h-36 object-cover" />
+            <div class="p-5">
+              <h3 class="font-bold text-[#1C1917] mb-1">Venue Styling</h3>
+              <p class="text-[12.5px] text-[#7A7067] mb-3">From $2,000 · per event</p>
+              <span class="inline-block px-3 py-1 rounded-full text-[11px] font-bold bg-emerald-100 text-emerald-700">Active</span>
+            </div>
+          </div>
+          <div class="bg-white rounded-2xl overflow-hidden border border-gray-200/80 shadow-sm">
+            <img src="assets/images-01/catering-menu-planning-table.webp" alt="Catering" class="w-full h-36 object-cover" />
+            <div class="p-5">
+              <h3 class="font-bold text-[#1C1917] mb-1">Catering &amp; Menu</h3>
+              <p class="text-[12.5px] text-[#7A7067] mb-3">From $4,000 · per event</p>
+              <span class="inline-block px-3 py-1 rounded-full text-[11px] font-bold bg-emerald-100 text-emerald-700">Active</span>
+            </div>
+          </div>
+          <div class="bg-white rounded-2xl overflow-hidden border border-gray-200/80 shadow-sm">
+            <img src="assets/images-02/photography-videography-ballroom.webp" alt="Photography" class="w-full h-36 object-cover" />
+            <div class="p-5">
+              <h3 class="font-bold text-[#1C1917] mb-1">Photography</h3>
+              <p class="text-[12.5px] text-[#7A7067] mb-3">From $2,500 · per event</p>
+              <span class="inline-block px-3 py-1 rounded-full text-[11px] font-bold bg-amber-100 text-amber-700">Paused</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ================= 5. AVAILABILITY TAB CONTENT ================= -->
+      <div id="tab-content-availability" class="tab-pane hidden space-y-6 animate-fade-in">
+        <div>
+          <h1 class="font-serif-title text-2xl font-bold text-[#1C1917]">Availability</h1>
+          <p class="text-[13.5px] text-[#7A7067]">Block dates you are unavailable for bookings.</p>
+        </div>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+          <div class="md:col-span-2 bg-white rounded-2xl border border-gray-200/80 shadow-sm p-6">
+            <p class="text-[12px] font-bold uppercase tracking-wider text-[#7A7067] mb-4">Upcoming Bookings</p>
+            <div class="space-y-3">
+              <div class="flex items-center justify-between p-4 rounded-xl border border-gray-100 bg-[#FAF9F6]">
+                <div><p class="font-bold text-[13.5px] text-[#1C1917]">12 Sep 2026</p><p class="text-[12px] text-[#7A7067]">Sophia &amp; Daniel · Venue</p></div>
+                <span class="inline-block px-3 py-1 rounded-full text-[11px] font-bold bg-emerald-100 text-emerald-700">Booked</span>
+              </div>
+              <div class="flex items-center justify-between p-4 rounded-xl border border-gray-100 bg-[#FAF9F6]">
+                <div><p class="font-bold text-[13.5px] text-[#1C1917]">03 Oct 2026</p><p class="text-[12px] text-[#7A7067]">Isabella &amp; Liam · Catering</p></div>
+                <span class="inline-block px-3 py-1 rounded-full text-[11px] font-bold bg-emerald-100 text-emerald-700">Booked</span>
+              </div>
+              <div class="flex items-center justify-between p-4 rounded-xl border border-gray-100 bg-[#FAF9F6]">
+                <div><p class="font-bold text-[13.5px] text-[#1C1917]">21 Nov 2026</p><p class="text-[12px] text-[#7A7067]">Amelia &amp; Noah · Photography</p></div>
+                <span class="inline-block px-3 py-1 rounded-full text-[11px] font-bold bg-emerald-100 text-emerald-700">Booked</span>
+              </div>
+            </div>
+          </div>
+          <div class="bg-white rounded-2xl border border-gray-200/80 shadow-sm p-6">
+            <p class="text-[12px] font-bold uppercase tracking-wider text-[#7A7067] mb-4">Block a Date</p>
+            <input id="block-date-input" type="date" required class="w-full px-4 py-2.5 border border-gray-200 rounded-lg text-sm mb-3" />
+            <button onclick="var d = document.getElementById('block-date-input').value; if (!d) { alert('Please select a date to block.'); return false; } goTo404();" class="w-full px-5 py-2.5 bg-[#685D54] hover:bg-[#544B43] text-white text-xs font-bold uppercase tracking-wider rounded-xl transition-all shadow-sm">Block Date</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- ================= 6. EARNINGS TAB CONTENT ================= -->
+      <div id="tab-content-earnings" class="tab-pane hidden space-y-6 animate-fade-in">
+        <div>
+          <h1 class="font-serif-title text-2xl font-bold text-[#1C1917]">Earnings</h1>
+          <p class="text-[13.5px] text-[#7A7067]">Your revenue overview and payment history.</p>
+        </div>
+        <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+          <div class="bg-white rounded-2xl p-5 border border-gray-200/80 shadow-sm">
+            <p class="text-[11px] font-bold uppercase tracking-wider text-[#7A7067] mb-2">This Month</p>
+            <p class="font-serif-title text-3xl font-bold text-[#1C1917]">$8,200</p>
+          </div>
+          <div class="bg-white rounded-2xl p-5 border border-gray-200/80 shadow-sm">
+            <p class="text-[11px] font-bold uppercase tracking-wider text-[#7A7067] mb-2">This Year</p>
+            <p class="font-serif-title text-3xl font-bold text-[#1C1917]">$24,500</p>
+          </div>
+          <div class="bg-white rounded-2xl p-5 border border-gray-200/80 shadow-sm">
+            <p class="text-[11px] font-bold uppercase tracking-wider text-[#7A7067] mb-2">Payout Pending</p>
+            <p class="font-serif-title text-3xl font-bold text-[#1C1917]">$3,150</p>
+          </div>
+        </div>
+        <div class="bg-white rounded-2xl border border-gray-200/80 shadow-sm overflow-hidden">
+          <div class="overflow-x-auto">
+            <table class="w-full text-left text-[13.5px]">
+              <thead class="bg-[#FAF9F6] text-[#7A7067] text-[11px] uppercase tracking-[0.1em]">
+                <tr><th class="py-3.5 px-6 font-bold">Date</th><th class="py-3.5 px-3 font-bold">Booking</th><th class="py-3.5 px-3 font-bold">Amount</th><th class="py-3.5 px-6 text-right font-bold">Status</th></tr>
+              </thead>
+              <tbody class="divide-y divide-gray-100">
+                <tr><td class="py-4 px-6">12 Aug 2026</td><td class="py-4 px-3 font-semibold">BK-1001</td><td class="py-4 px-3 font-medium">$4,200</td><td class="py-4 px-6 text-right"><span class="inline-block px-3.5 py-1 rounded-full text-[11.5px] font-bold bg-emerald-100 text-emerald-700">Paid</span></td></tr>
+                <tr><td class="py-4 px-6">02 Aug 2026</td><td class="py-4 px-3 font-semibold">BK-0998</td><td class="py-4 px-3 font-medium">$3,800</td><td class="py-4 px-6 text-right"><span class="inline-block px-3.5 py-1 rounded-full text-[11.5px] font-bold bg-emerald-100 text-emerald-700">Paid</span></td></tr>
+                <tr><td class="py-4 px-6">28 Jul 2026</td><td class="py-4 px-3 font-semibold">BK-0995</td><td class="py-4 px-3 font-medium">$2,150</td><td class="py-4 px-6 text-right"><span class="inline-block px-3.5 py-1 rounded-full text-[11.5px] font-bold bg-amber-100 text-amber-700">Pending</span></td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
+      <!-- ================= 7. SETTINGS TAB CONTENT ================= -->
+      <div id="tab-content-settings" class="tab-pane hidden space-y-6 animate-fade-in">
+        <div>
+          <h1 class="font-serif-title text-2xl font-bold text-[#1C1917]">Vendor Profile Settings</h1>
+          <p class="text-[13.5px] text-[#7A7067]">Update your vendor profile and contact details.</p>
+        </div>
+        <div class="bg-white p-6 sm:p-8 rounded-2xl border border-gray-200/80 shadow-sm space-y-5 max-w-[800px]">
+          <form onsubmit="event.preventDefault(); var emailVal = document.getElementById('settings-email').value.trim(); if (!emailVal.toLowerCase().endsWith('.com')) { alert('Email address must end with .com'); return false; } goTo404();" class="space-y-5">
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+              <div>
+                <label class="block text-xs font-bold text-[#7A7067] uppercase mb-1">Business Name</label>
+                <input type="text" value="STACKLY Events &amp; Co." class="w-full px-4 py-2.5 border border-gray-200 rounded-lg text-xs" />
+              </div>
+              <div>
+                <label class="block text-xs font-bold text-[#7A7067] uppercase mb-1">Service Category</label>
+                <select class="w-full px-4 py-2.5 border border-gray-200 rounded-lg text-xs bg-white">
+                  <option>Venue</option>
+                  <option selected>Catering</option>
+                  <option>Photography</option>
+                  <option>Floral Design</option>
+                </select>
+              </div>
+            </div>
+            <div>
+              <label class="block text-xs font-bold text-[#7A7067] uppercase mb-1">Contact Email</label>
+              <input id="settings-email" type="email" value="vendor@example.com" class="w-full px-4 py-2.5 border border-gray-200 rounded-lg text-xs" />
+            </div>
+            <div>
+              <label class="block text-xs font-bold text-[#7A7067] uppercase mb-1">Short Bio</label>
+              <textarea rows="3" class="w-full px-4 py-2.5 border border-gray-200 rounded-lg text-xs">Premier wedding vendor crafting unforgettable celebrations.</textarea>
+            </div>
+            <button type="submit" class="px-6 py-3 bg-[#685D54] hover:bg-[#544B43] text-white text-xs font-bold uppercase tracking-wider rounded-xl shadow-sm">Save Changes</button>
+          </form>
+        </div>
+      </div>
+
+    </main>
+
+  </div>
+
+  <!-- JAVASCRIPT FOR INTERACTIVE TAB SWITCHING -->
+  <script>
+    // 0. Track current active tab so 404 "Back" can restore it
+    let currentDashboardTab = 'dashboard';
+
+    // Helper: remember the active tab, then send user to the 404 page
+    function goTo404() {
+      sessionStorage.setItem('wedding_return_tab', currentDashboardTab);
+      window.location.href = '404.html';
+    }
+
+    // 1. Sidebar Tab Switching Engine
+    function switchSidebarTab(tabName) {
+      currentDashboardTab = tabName;
+      const allPanes = document.querySelectorAll('.tab-pane');
+      allPanes.forEach(pane => pane.classList.add('hidden'));
+
+      const allButtons = document.querySelectorAll('[id^="nav-btn-"]');
+      allButtons.forEach(btn => {
+        btn.classList.remove('sidebar-link-active', 'font-semibold', 'text-[#685D54]', 'bg-[#F5ECE3]/80');
+        btn.classList.add('font-medium', 'text-gray-600');
+        const dot = btn.querySelector('.tab-dot');
+        if (dot) dot.classList.add('hidden');
+      });
+
+      const targetPane = document.getElementById(`tab-content-${tabName}`);
+      if (targetPane) targetPane.classList.remove('hidden');
+
+      const targetBtn = document.getElementById(`nav-btn-${tabName}`);
+      if (targetBtn) {
+        targetBtn.classList.add('sidebar-link-active', 'font-semibold', 'text-[#685D54]', 'bg-[#F5ECE3]/80');
+        targetBtn.classList.remove('font-medium', 'text-gray-600');
+        const dot = targetBtn.querySelector('.tab-dot');
+        if (dot) dot.classList.remove('hidden');
+      }
+    }
+
+    // 2. Profile Dropdown Toggle
+    const profileBtn = document.getElementById('user-profile-menu-btn');
+    const profileMenu = document.getElementById('profile-dropdown-menu');
+    if (profileBtn && profileMenu) {
+      profileBtn.addEventListener('click', (e) => {
+        e.stopPropagation();
+        profileMenu.classList.toggle('hidden');
+      });
+      document.addEventListener('click', (e) => {
+        if (!profileMenu.contains(e.target)) profileMenu.classList.add('hidden');
+      });
+    }
+
+    // 3. Mobile Sidebar Toggle
+    const toggleBtn = document.getElementById('sidebar-toggle-btn');
+    const drawer = document.getElementById('sidebar-drawer');
+    if (toggleBtn && drawer) {
+      toggleBtn.addEventListener('click', () => {
+        drawer.classList.toggle('-translate-x-full');
+      });
+    }
+
+    // 4. Logout Handler
+    function handleLogout() {
+      localStorage.removeItem('wedding_user_email');
+      localStorage.removeItem('wedding_user_role');
+      window.location.href = 'login.html';
+    }
+
+    // 5. Display Logged-In Vendor Email & Redirect non-vendors
+    (function initVendor() {
+      const role = localStorage.getItem('wedding_user_role') || 'couple';
+      if (role !== 'vendor') {
+        window.location.href = 'dashboard.html';
+        return;
+      }
+      const email = localStorage.getItem('wedding_user_email') || '';
+      const large = document.getElementById('profile-email-large');
+      const small = document.getElementById('profile-email-small');
+      const settings = document.getElementById('settings-email');
+      if (email) {
+        if (large) large.textContent = email;
+        if (small) small.textContent = email;
+        if (settings) settings.value = email;
+      }
+    })();
+
+    // 6. Restore the previous tab when returning from the 404 page
+    (function restoreReturnTab() {
+      const returnTab = sessionStorage.getItem('wedding_return_tab');
+      if (returnTab && document.getElementById(`tab-content-${returnTab}`)) {
+        sessionStorage.removeItem('wedding_return_tab');
+        currentDashboardTab = returnTab;
+        switchSidebarTab(returnTab);
+      } else if (returnTab) {
+        sessionStorage.removeItem('wedding_return_tab');
+      }
+    })();
+  </script>
+
+</body>
+</html>

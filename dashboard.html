@@ -1,0 +1,1209 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Wedding Dashboard - STACKLY</title>
+
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <!-- Google Fonts: Playfair Display & Plus Jakarta Sans -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400;1,600;1,700&family=Plus+Jakarta+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet" />
+
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            brand: {
+              taupe: '#5C524A',
+              taupeDark: '#4A413A',
+              taupeLight: '#685D54',
+              bgLight: '#FAF9F6',
+              bgWarm: '#F7F6F4',
+              cardBg: '#FFFFFF',
+              dark: '#1C1917'
+            }
+          },
+          fontFamily: {
+            serif: ['"Playfair Display"', 'Georgia', 'serif'],
+            sans: ['"Plus Jakarta Sans"', 'Inter', 'sans-serif']
+          }
+        }
+      }
+    }
+  </script>
+
+  <style>
+    .font-serif-title { font-family: 'Playfair Display', Georgia, serif; }
+    .custom-scrollbar::-webkit-scrollbar { height: 6px; width: 6px; }
+    .custom-scrollbar::-webkit-scrollbar-track { background: #F1EFEA; border-radius: 10px; }
+    .custom-scrollbar::-webkit-scrollbar-thumb { background: #C5BBB0; border-radius: 10px; }
+    .custom-scrollbar::-webkit-scrollbar-thumb:hover { background: #685D54; }
+    
+    .sidebar-link-active {
+      background-color: #F5ECE3 !important;
+      color: #685D54 !important;
+      font-weight: 700 !important;
+      border: 1px solid rgba(104, 93, 84, 0.2) !important;
+      box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+    }
+  </style>
+    <!-- Awwwards / Apple-Grade Motion Libraries (Lenis Smooth Scroll + GSAP + ScrollTrigger) -->
+  <link rel="stylesheet" href="https://unpkg.com/lenis@1.1.18/dist/lenis.css" />
+  <script src="https://unpkg.com/lenis@1.1.18/dist/lenis.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+</head>
+<body class="bg-[#F7F6F4] font-sans antialiased text-[#1C1917] min-h-screen flex flex-col selection:bg-[#5C524A] selection:text-white">
+
+  <!-- TOP DASHBOARD HEADER NAVIGATION -->
+  <header class="w-full bg-white border-b border-gray-200/80 sticky top-0 z-30 shadow-sm">
+    <div class="max-w-[1536px] mx-auto px-4 sm:px-6 lg:px-8 h-[72px] flex items-center justify-between gap-4">
+      
+      <!-- Left: Logo & Sidebar Toggle Button -->
+      <div class="flex items-center gap-3 sm:gap-4">
+        <button id="sidebar-toggle-btn" class="lg:hidden p-2 rounded-lg text-gray-600 hover:text-gray-900 hover:bg-gray-100 transition-colors" aria-label="Toggle Sidebar Menu">
+          <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" /></svg>
+        </button>
+
+        <a href="index.html" class="flex items-center gap-2 group select-none">
+          <img src="assets/images-02/logo-stackly.webp" alt="STACKLY" class="h-7 sm:h-8 w-auto object-contain transform transition-transform group-hover:scale-105" />
+        </a>
+      </div>
+
+      <!-- Right: Notifications & Profile Menu -->
+      <div class="flex items-center gap-3 sm:gap-5">
+        
+        <!-- Notification Bell -->
+        <button class="relative p-2 rounded-full text-gray-500 hover:text-gray-800 hover:bg-gray-100 transition-colors" title="Notifications">
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9" /></svg>
+          <span class="absolute top-1.5 right-1.5 w-2 h-2 rounded-full bg-amber-600 ring-2 ring-white animate-ping"></span>
+          <span class="absolute top-1.5 right-1.5 w-2 h-2 rounded-full bg-amber-600 ring-2 ring-white"></span>
+        </button>
+
+        <!-- Profile Dropdown Container -->
+        <div class="relative">
+          <button id="user-profile-menu-btn" class="flex items-center gap-2.5 p-1 rounded-full hover:bg-gray-100 transition-colors">
+            <img src="assets/images-02/team-eleanor-vance.webp" alt="User Profile" class="w-9 h-9 rounded-full object-cover border border-[#685D54]/30 shadow-sm" />
+            <div class="hidden sm:flex flex-col text-left">
+              <span id="profile-email-large" class="font-bold text-[13px] text-[#1C1917] leading-tight">Cyndy Lillibridge</span>
+              <span id="profile-role-large" class="text-[11px] text-[#7A7067] leading-tight">Couple Account</span>
+            </div>
+            <svg class="w-4 h-4 text-gray-400 ml-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" /></svg>
+          </button>
+
+          <!-- Dropdown Menu Box -->
+          <div id="profile-dropdown-menu" class="hidden absolute right-0 mt-2 w-52 bg-white rounded-xl shadow-xl border border-gray-100 py-2 z-50 transition-all">
+            <div class="px-4 py-2.5 border-b border-gray-100 sm:hidden">
+              <p id="profile-email-small" class="font-bold text-[13px] text-[#1C1917]">Cyndy Lillibridge</p>
+              <p id="profile-role-small" class="text-[11px] text-[#7A7067]">Couple Account</p>
+            </div>
+            <a href="javascript:void(0)" onclick="goTo404()" class="flex items-center gap-2.5 px-4 py-2 text-[13px] text-gray-700 hover:bg-[#FAF9F6] hover:text-[#5C524A]">
+              <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" /></svg>
+              View Main Site
+            </a>
+            <a href="javascript:void(0)" onclick="goTo404()" class="flex items-center gap-2.5 px-4 py-2 text-[13px] text-gray-700 hover:bg-[#FAF9F6] hover:text-[#5C524A]">
+              <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z" /><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" /></svg>
+              Account Settings
+            </a>
+            <div class="my-1 border-t border-gray-100"></div>
+            <button onclick="handleLogout()" class="w-full flex items-center gap-2.5 px-4 py-2 text-[13px] text-red-600 hover:bg-red-50 text-left font-medium">
+              <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1" /></svg>
+              Log Out
+            </button>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+  </header>
+
+  <!-- DASHBOARD MAIN BODY LAYOUT (SIDEBAR + CONTENT) -->
+  <div class="flex-grow flex w-full max-w-[1536px] mx-auto relative">
+    
+    <!-- Mobile Sidebar Backdrop Overlay -->
+    <div id="sidebar-backdrop" class="hidden fixed inset-0 bg-black/40 z-30 lg:hidden backdrop-blur-xs transition-opacity"></div>
+
+    <!-- LEFT SIDEBAR NAVIGATION MENU -->
+    <aside id="sidebar-drawer" class="fixed lg:static top-[72px] lg:top-0 bottom-0 left-0 z-40 lg:z-20 w-64 bg-white border-r border-gray-200/80 transform -translate-x-full lg:translate-x-0 transition-transform duration-300 flex flex-col justify-between pt-5 lg:pt-6 pb-6 shadow-2xl lg:shadow-none h-[calc(100vh-72px)] lg:h-auto overflow-y-auto custom-scrollbar">
+      
+      <!-- Top Nav List -->
+      <div class="px-4 space-y-1">
+        <div class="px-3 pb-2 text-[11px] font-bold tracking-[0.16em] uppercase text-[#7A7067]">Navigation</div>
+        
+        <!-- Dashboard Item -->
+        <a href="javascript:void(0)" onclick="switchSidebarTab('dashboard')" id="nav-btn-dashboard" class="flex items-center justify-between px-3.5 py-2.5 rounded-xl text-[13.5px] font-semibold text-[#685D54] bg-[#F5ECE3]/80 border border-[#685D54]/20 transition-all shadow-xs sidebar-link-active">
+          <div class="flex items-center gap-3">
+            <svg class="w-5 h-5 text-[#685D54]" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="1.8"><path stroke-linecap="round" stroke-linejoin="round" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" /></svg>
+            Dashboard
+          </div>
+          <span class="w-2 h-2 rounded-full bg-[#685D54] tab-dot"></span>
+        </a>
+
+        <!-- Events Item -->
+        <a href="javascript:void(0)" onclick="switchSidebarTab('events')" id="nav-btn-events" class="flex items-center justify-between px-3.5 py-2.5 rounded-xl text-[13.5px] font-medium text-gray-600 hover:text-[#1C1917] hover:bg-[#FAF9F6] transition-colors group">
+          <div class="flex items-center gap-3">
+            <svg class="w-5 h-5 text-gray-400 group-hover:text-[#685D54]" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="1.8"><path stroke-linecap="round" stroke-linejoin="round" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" /></svg>
+            Events
+          </div>
+          <span class="w-2 h-2 rounded-full bg-[#685D54] hidden tab-dot"></span>
+        </a>
+
+        <!-- Tasks Item -->
+        <a href="javascript:void(0)" onclick="switchSidebarTab('tasks')" id="nav-btn-tasks" class="flex items-center justify-between px-3.5 py-2.5 rounded-xl text-[13.5px] font-medium text-gray-600 hover:text-[#1C1917] hover:bg-[#FAF9F6] transition-colors group">
+          <div class="flex items-center gap-3">
+            <svg class="w-5 h-5 text-gray-400 group-hover:text-[#685D54]" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="1.8"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4" /></svg>
+            Tasks &amp; Timeline
+          </div>
+          <span class="w-2 h-2 rounded-full bg-[#685D54] hidden tab-dot"></span>
+        </a>
+
+        <!-- Vendors Item -->
+        <a href="javascript:void(0)" onclick="switchSidebarTab('vendors')" id="nav-btn-vendors" class="flex items-center justify-between px-3.5 py-2.5 rounded-xl text-[13.5px] font-medium text-gray-600 hover:text-[#1C1917] hover:bg-[#FAF9F6] transition-colors group">
+          <div class="flex items-center gap-3">
+            <svg class="w-5 h-5 text-gray-400 group-hover:text-[#685D54]" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="1.8"><path stroke-linecap="round" stroke-linejoin="round" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5m0 0h4m-4 0a2 2 0 104 0m-4 0a2 2 0 114 0" /></svg>
+            Vendors
+          </div>
+          <span class="w-2 h-2 rounded-full bg-[#685D54] hidden tab-dot"></span>
+        </a>
+
+        <!-- Guests Item -->
+        <a href="javascript:void(0)" onclick="switchSidebarTab('guests')" id="nav-btn-guests" class="flex items-center justify-between px-3.5 py-2.5 rounded-xl text-[13.5px] font-medium text-gray-600 hover:text-[#1C1917] hover:bg-[#FAF9F6] transition-colors group">
+          <div class="flex items-center gap-3">
+            <svg class="w-5 h-5 text-gray-400 group-hover:text-[#685D54]" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="1.8"><path stroke-linecap="round" stroke-linejoin="round" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z" /></svg>
+            Guests
+          </div>
+          <span class="w-2 h-2 rounded-full bg-[#685D54] hidden tab-dot"></span>
+        </a>
+
+        <!-- Budget Item -->
+        <a href="javascript:void(0)" onclick="switchSidebarTab('budget')" id="nav-btn-budget" class="flex items-center justify-between px-3.5 py-2.5 rounded-xl text-[13.5px] font-medium text-gray-600 hover:text-[#1C1917] hover:bg-[#FAF9F6] transition-colors group">
+          <div class="flex items-center gap-3">
+            <svg class="w-5 h-5 text-gray-400 group-hover:text-[#685D54]" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="1.8"><path stroke-linecap="round" stroke-linejoin="round" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
+            Budget
+          </div>
+          <span class="w-2 h-2 rounded-full bg-[#685D54] hidden tab-dot"></span>
+        </a>
+
+        <!-- Invitations Item -->
+        <a href="javascript:void(0)" onclick="switchSidebarTab('invitations')" id="nav-btn-invitations" class="flex items-center justify-between px-3.5 py-2.5 rounded-xl text-[13.5px] font-medium text-gray-600 hover:text-[#1C1917] hover:bg-[#FAF9F6] transition-colors group">
+          <div class="flex items-center gap-3">
+            <svg class="w-5 h-5 text-gray-400 group-hover:text-[#685D54]" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="1.8"><path stroke-linecap="round" stroke-linejoin="round" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" /></svg>
+            Invitations &amp; Cards
+          </div>
+          <span class="w-2 h-2 rounded-full bg-[#685D54] hidden tab-dot"></span>
+        </a>
+
+        <!-- Reports Item -->
+        <a href="javascript:void(0)" onclick="switchSidebarTab('reports')" id="nav-btn-reports" class="flex items-center justify-between px-3.5 py-2.5 rounded-xl text-[13.5px] font-medium text-gray-600 hover:text-[#1C1917] hover:bg-[#FAF9F6] transition-colors group">
+          <div class="flex items-center gap-3">
+            <svg class="w-5 h-5 text-gray-400 group-hover:text-[#685D54]" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="1.8"><path stroke-linecap="round" stroke-linejoin="round" d="M9 17v-2m3 2v-4m3 4v-6m2 10H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" /></svg>
+            Reports
+          </div>
+          <span class="w-2 h-2 rounded-full bg-[#685D54] hidden tab-dot"></span>
+        </a>
+
+        <!-- Settings Item -->
+        <a href="javascript:void(0)" onclick="switchSidebarTab('settings')" id="nav-btn-settings" class="flex items-center justify-between px-3.5 py-2.5 rounded-xl text-[13.5px] font-medium text-gray-600 hover:text-[#1C1917] hover:bg-[#FAF9F6] transition-colors group">
+          <div class="flex items-center gap-3">
+            <svg class="w-5 h-5 text-gray-400 group-hover:text-[#685D54]" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="1.8"><path stroke-linecap="round" stroke-linejoin="round" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z" /><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" /></svg>
+            Settings
+          </div>
+          <span class="w-2 h-2 rounded-full bg-[#685D54] hidden tab-dot"></span>
+        </a>
+      </div>
+
+    </aside>
+
+    <!-- MAIN CONTENT AREA -->
+    <main class="flex-1 min-w-0 p-4 sm:p-6 lg:p-8 space-y-8">
+      
+      <!-- ================= 1. DASHBOARD TAB CONTENT ================= -->
+      <div id="tab-content-dashboard" class="tab-pane space-y-8 animate-fade-in">
+        
+        <!-- HERO WELCOME BANNER WITH BACKGROUND IMAGE -->
+        <div class="relative w-full rounded-2xl overflow-hidden shadow-md group">
+          <img src="assets/images-01/contact-hero-bg.webp" alt="Welcome Background" class="w-full h-56 sm:h-64 object-cover object-center transform group-hover:scale-105 transition-transform duration-700" />
+          <div class="absolute inset-0 bg-gradient-to-r from-black/80 via-black/50 to-transparent"></div>
+          
+          <div class="absolute inset-0 p-6 sm:p-8 flex flex-col justify-center items-start space-y-3">
+            <span class="px-3.5 py-1 bg-white/20 backdrop-blur-md rounded-full text-white text-[11px] font-bold uppercase tracking-[0.18em]">
+              Primary Dashboard
+            </span>
+            <h1 class="font-serif-title text-3xl sm:text-4xl font-bold text-white tracking-tight leading-tight">
+              Welcome back, <span id="profile-greeting-name">Cyndy &amp; James</span>!
+            </h1>
+            <p class="text-xs sm:text-sm text-white/90 font-normal max-w-[540px]">
+              Your dream wedding is <span class="font-bold underline text-amber-200">120 days away</span>. Here is your latest planning activity and progress overview for today.
+            </p>
+            <div class="flex flex-wrap items-center gap-3 pt-2">
+              <button onclick="goTo404()" class="px-5 py-2.5 bg-white hover:bg-gray-100 text-[#685D54] text-[11.5px] font-bold uppercase tracking-[0.14em] rounded-xl transition-all shadow-sm">
+                VIEW EVENTS
+              </button>
+              <button onclick="goTo404()" class="px-5 py-2.5 bg-white/20 hover:bg-white/30 backdrop-blur-md text-white text-[11.5px] font-bold uppercase tracking-[0.14em] rounded-xl transition-all border border-white/40">
+                GUEST RSVPS
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- 4 ELEVATED METRIC COUNTER CARDS WITH HOVER LIFT & PROGRESS BARS -->
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
+          
+          <!-- Metric 1 -->
+          <div class="bg-white p-6 rounded-2xl border border-gray-200/80 shadow-sm hover:shadow-xl hover:-translate-y-1.5 transition-all duration-300 group">
+            <div class="flex items-center justify-between mb-3">
+              <span class="text-[11px] font-bold uppercase tracking-[0.16em] text-[#7A7067]">DAYS UNTIL WEDDING</span>
+              <div class="w-9 h-9 rounded-xl bg-[#F5ECE3] text-[#685D54] flex items-center justify-center group-hover:scale-110 transition-transform">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
+              </div>
+            </div>
+            <div class="font-serif-title text-4xl font-bold text-[#1C1917] mb-1 count-animate" data-target="120">0</div>
+            <p class="text-xs font-semibold text-emerald-600 mb-3">&darr; Target: 23 February 2026</p>
+            <div class="w-full h-1.5 bg-gray-100 rounded-full overflow-hidden">
+              <div class="h-full bg-emerald-500 w-[68%]"></div>
+            </div>
+          </div>
+
+          <!-- Metric 2 -->
+          <div class="bg-white p-6 rounded-2xl border border-gray-200/80 shadow-sm hover:shadow-xl hover:-translate-y-1.5 transition-all duration-300 group">
+            <div class="flex items-center justify-between mb-3">
+              <span class="text-[11px] font-bold uppercase tracking-[0.16em] text-[#7A7067]">CONFIRMED RSVPS</span>
+              <div class="w-9 h-9 rounded-xl bg-[#F5ECE3] text-[#685D54] flex items-center justify-center group-hover:scale-110 transition-transform">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" /></svg>
+              </div>
+            </div>
+            <div class="flex items-baseline gap-2 mb-1">
+              <span class="font-serif-title text-4xl font-bold text-[#1C1917] count-animate" data-target="184">0</span>
+              <span class="text-xs text-gray-500 font-medium">/ 220 Guests</span>
+            </div>
+            <p class="text-xs text-indigo-600 font-semibold mb-3">83% Confirmation Rate</p>
+            <div class="w-full h-1.5 bg-gray-100 rounded-full overflow-hidden">
+              <div class="h-full bg-indigo-500 w-[83%]"></div>
+            </div>
+          </div>
+
+          <!-- Metric 3 -->
+          <div class="bg-white p-6 rounded-2xl border border-gray-200/80 shadow-sm hover:shadow-xl hover:-translate-y-1.5 transition-all duration-300 group">
+            <div class="flex items-center justify-between mb-3">
+              <span class="text-[11px] font-bold uppercase tracking-[0.16em] text-[#7A7067]">TASKS COMPLETED</span>
+              <div class="w-9 h-9 rounded-xl bg-[#F5ECE3] text-[#685D54] flex items-center justify-center group-hover:scale-110 transition-transform">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
+              </div>
+            </div>
+            <div class="flex items-baseline gap-2 mb-1">
+              <span class="font-serif-title text-4xl font-bold text-[#1C1917] count-animate" data-target="74">0</span>
+              <span class="text-xs text-gray-500 font-medium">/ 98 Total</span>
+            </div>
+            <p class="text-xs text-emerald-600 font-semibold mb-3">75% Planning On Track</p>
+            <div class="w-full h-1.5 bg-gray-100 rounded-full overflow-hidden">
+              <div class="h-full bg-emerald-500 w-[75%]"></div>
+            </div>
+          </div>
+
+          <!-- Metric 4 -->
+          <div class="bg-white p-6 rounded-2xl border border-gray-200/80 shadow-sm hover:shadow-xl hover:-translate-y-1.5 transition-all duration-300 group">
+            <div class="flex items-center justify-between mb-3">
+              <span class="text-[11px] font-bold uppercase tracking-[0.16em] text-[#7A7067]">BUDGET SPENT</span>
+              <div class="w-9 h-9 rounded-xl bg-[#F5ECE3] text-[#685D54] flex items-center justify-center group-hover:scale-110 transition-transform">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
+              </div>
+            </div>
+            <div class="flex items-baseline gap-2 mb-1">
+              <span class="font-serif-title text-3xl font-bold text-[#1C1917]">$48,500</span>
+              <span class="text-xs text-gray-500 font-medium">/ $65k</span>
+            </div>
+            <p class="text-xs text-amber-600 font-semibold mb-3">74% Total Spent</p>
+            <div class="w-full h-1.5 bg-gray-100 rounded-full overflow-hidden">
+              <div class="h-full bg-amber-500 w-[74%]"></div>
+            </div>
+          </div>
+
+        </div>
+
+        <!-- VISUAL GALLERY CARDS SECTION ("YOUR WEDDING VISION") -->
+        <section class="space-y-4">
+          <div class="flex items-center justify-between">
+            <h2 class="font-serif-title text-2xl font-bold text-[#1C1917]">Your Wedding Vision &amp; Highlights</h2>
+            <a href="javascript:void(0)" onclick="goTo404()" class="text-xs font-bold text-[#685D54] hover:underline uppercase tracking-wider">
+              View Gallery &rarr;
+            </a>
+          </div>
+
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+            
+            <!-- Card 1 -->
+            <div class="bg-white rounded-2xl overflow-hidden border border-gray-200/80 shadow-sm hover:shadow-lg transition-all group">
+              <div class="relative h-48 overflow-hidden">
+                <img src="assets/images-02/destination-provence-france.webp" alt="Selected Venue" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" />
+                <div class="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent"></div>
+                <span class="absolute top-3 right-3 bg-emerald-500 text-white text-[10px] font-bold px-3 py-1 rounded-full uppercase tracking-wider shadow-sm">
+                  Confirmed Venue
+                </span>
+              </div>
+              <div class="p-5">
+                <h3 class="font-serif-title text-lg font-bold text-[#1C1917] mb-1">Château de Courcelette</h3>
+                <p class="text-xs text-[#6B625A] font-normal">Provence, France &bull; 200 Guest Capacity</p>
+              </div>
+            </div>
+
+            <!-- Card 2 -->
+            <div class="bg-white rounded-2xl overflow-hidden border border-gray-200/80 shadow-sm hover:shadow-lg transition-all group">
+              <div class="relative h-48 overflow-hidden">
+                <img src="assets/images-02/real-wedding-3.webp" alt="Bridal Style" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" />
+                <div class="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent"></div>
+                <span class="absolute top-3 right-3 bg-indigo-500 text-white text-[10px] font-bold px-3 py-1 rounded-full uppercase tracking-wider shadow-sm">
+                  Fitting Scheduled
+                </span>
+              </div>
+              <div class="p-5">
+                <h3 class="font-serif-title text-lg font-bold text-[#1C1917] mb-1">Bespoke Silk Gown &amp; Tux</h3>
+                <p class="text-xs text-[#6B625A] font-normal">Parisian Haute Couture Atelier</p>
+              </div>
+            </div>
+
+            <!-- Card 3 -->
+            <div class="bg-white rounded-2xl overflow-hidden border border-gray-200/80 shadow-sm hover:shadow-lg transition-all group">
+              <div class="relative h-48 overflow-hidden">
+                <img src="assets/images-01/bts-1.webp" alt="Floral & Decor" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" />
+                <div class="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent"></div>
+                <span class="absolute top-3 right-3 bg-purple-500 text-white text-[10px] font-bold px-3 py-1 rounded-full uppercase tracking-wider shadow-sm">
+                  Design Drafted
+                </span>
+              </div>
+              <div class="p-5">
+                <h3 class="font-serif-title text-lg font-bold text-[#1C1917] mb-1">Botanical Floral Arches</h3>
+                <p class="text-xs text-[#6B625A] font-normal">Aura Florals &bull; White Roses &amp; Eucalyptus</p>
+              </div>
+            </div>
+
+          </div>
+        </section>
+
+        <!-- RECENT ACTIVITY FEED & CHECKLIST SPLIT -->
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
+          
+          <!-- Recent Activity (7 cols) -->
+          <div class="lg:col-span-7 bg-white p-6 sm:p-7 rounded-2xl border border-gray-200/80 shadow-sm space-y-4">
+            <h2 class="font-serif-title text-xl font-bold text-[#1C1917]">Recent Planning Updates</h2>
+            
+            <div class="space-y-3.5">
+              <div class="flex items-start gap-3.5 p-3 rounded-xl bg-[#FAF9F6] border border-gray-100 hover:bg-[#F5ECE3]/50 transition-colors">
+                <div class="w-8 h-8 rounded-full bg-emerald-100 text-emerald-700 flex items-center justify-center font-bold text-xs flex-shrink-0 mt-0.5">&check;</div>
+                <div class="flex-1">
+                  <p class="text-xs font-bold text-[#1C1917]">Lumière Studios Photography Contract Signed</p>
+                  <p class="text-[11px] text-gray-500">Deposit payment processed &bull; 2 hours ago</p>
+                </div>
+              </div>
+
+              <div class="flex items-start gap-3.5 p-3 rounded-xl bg-[#FAF9F6] border border-gray-100 hover:bg-[#F5ECE3]/50 transition-colors">
+                <div class="w-8 h-8 rounded-full bg-indigo-100 text-indigo-700 flex items-center justify-center font-bold text-xs flex-shrink-0 mt-0.5">&plus;</div>
+                <div class="flex-1">
+                  <p class="text-xs font-bold text-[#1C1917]">Eleanor &amp; Thomas Confirmed RSVP (+2 guests)</p>
+                  <p class="text-[11px] text-gray-500">Dietary requirement: Vegetarian &bull; Yesterday</p>
+                </div>
+              </div>
+
+              <div class="flex items-start gap-3.5 p-3 rounded-xl bg-[#FAF9F6] border border-gray-100 hover:bg-[#F5ECE3]/50 transition-colors">
+                <div class="w-8 h-8 rounded-full bg-purple-100 text-purple-700 flex items-center justify-center font-bold text-xs flex-shrink-0 mt-0.5">&star;</div>
+                <div class="flex-1">
+                  <p class="text-xs font-bold text-[#1C1917]">Gaston Gourmet Catering Menu Tasting Date Set</p>
+                  <p class="text-[11px] text-gray-500">Scheduled for 15 October 2025 &bull; 3 days ago</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Quick Checklist (5 cols) -->
+          <div class="lg:col-span-5 bg-white p-6 sm:p-7 rounded-2xl border border-gray-200/80 shadow-sm space-y-4">
+            <h2 class="font-serif-title text-xl font-bold text-[#1C1917]">Priority Checklist</h2>
+            
+            <div class="space-y-3">
+              <div class="p-3 rounded-xl bg-[#FAF9F6] border border-gray-100 hover:bg-[#F5ECE3]/50 transition-colors">
+                <p class="text-xs font-semibold text-[#1C1917]">Confirm Château Venue Deposit</p>
+              </div>
+
+              <div class="p-3 rounded-xl bg-[#FAF9F6] border border-gray-100 hover:bg-[#F5ECE3]/50 transition-colors">
+                <p class="text-xs font-semibold text-[#1C1917]">Schedule Tasting with Gaston Catering</p>
+              </div>
+
+              <div class="p-3 rounded-xl bg-[#FAF9F6] border border-gray-100 hover:bg-[#F5ECE3]/50 transition-colors">
+                <p class="text-xs font-semibold text-[#1C1917]">Finalize Bespoke String Quartet Playlist</p>
+              </div>
+
+              <div class="p-3 rounded-xl bg-[#FAF9F6] border border-gray-100 hover:bg-[#F5ECE3]/50 transition-colors">
+                <p class="text-xs font-semibold text-[#1C1917]">Send Formal Invitation Suite Draft</p>
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+
+      <!-- ================= 2. EVENTS TAB CONTENT (DEFAULT ACTIVE) ================= -->
+      <div id="tab-content-events" class="tab-pane hidden space-y-8 animate-fade-in">
+        
+        <!-- STATS COUNTER SUMMARY ROW -->
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6">
+          
+          <div class="bg-white p-5 rounded-2xl border border-gray-200/70 shadow-sm hover:shadow-md transition-all group">
+            <div class="flex items-center justify-between mb-3">
+              <span class="text-[12px] font-bold tracking-[0.12em] uppercase text-[#7A7067]">Days To Big Day</span>
+              <div class="w-8 h-8 rounded-full bg-[#F5ECE3] flex items-center justify-center text-[#685D54]">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
+              </div>
+            </div>
+            <div class="flex items-baseline gap-2">
+              <span id="counter-days" class="font-serif-title text-3xl font-bold text-[#1C1917]">120</span>
+              <span class="text-xs text-emerald-600 font-semibold">&darr; Counting Down</span>
+            </div>
+            <p class="text-[11.5px] text-[#6B625A] mt-1">Target Date: 23 Feb 2026</p>
+          </div>
+
+          <div class="bg-white p-5 rounded-2xl border border-gray-200/70 shadow-sm hover:shadow-md transition-all group">
+            <div class="flex items-center justify-between mb-3">
+              <span class="text-[12px] font-bold tracking-[0.12em] uppercase text-[#7A7067]">Confirmed Guests</span>
+              <div class="w-8 h-8 rounded-full bg-[#F5ECE3] flex items-center justify-center text-[#685D54]">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" /></svg>
+              </div>
+            </div>
+            <div class="flex items-baseline gap-2">
+              <span id="counter-guests" class="font-serif-title text-3xl font-bold text-[#1C1917]">184</span>
+              <span class="text-xs text-gray-500 font-medium">/ 220 RSVPs</span>
+            </div>
+            <p class="text-[11.5px] text-[#6B625A] mt-1">83% Confirmation Rate</p>
+          </div>
+
+          <div class="bg-white p-5 rounded-2xl border border-gray-200/70 shadow-sm hover:shadow-md transition-all group">
+            <div class="flex items-center justify-between mb-3">
+              <span class="text-[12px] font-bold tracking-[0.12em] uppercase text-[#7A7067]">Completed Tasks</span>
+              <div class="w-8 h-8 rounded-full bg-[#F5ECE3] flex items-center justify-center text-[#685D54]">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
+              </div>
+            </div>
+            <div class="flex items-baseline gap-2">
+              <span id="counter-tasks" class="font-serif-title text-3xl font-bold text-[#1C1917]">74</span>
+              <span class="text-xs text-emerald-600 font-semibold">/ 98 Total</span>
+            </div>
+            <p class="text-[11.5px] text-[#6B625A] mt-1">75% Planning On Track</p>
+          </div>
+
+          <div class="bg-white p-5 rounded-2xl border border-gray-200/70 shadow-sm hover:shadow-md transition-all group">
+            <div class="flex items-center justify-between mb-3">
+              <span class="text-[12px] font-bold tracking-[0.12em] uppercase text-[#7A7067]">Budget Spent</span>
+              <div class="w-8 h-8 rounded-full bg-[#F5ECE3] flex items-center justify-center text-[#685D54]">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
+              </div>
+            </div>
+            <div class="flex items-baseline gap-2">
+              <span id="counter-budget" class="font-serif-title text-3xl font-bold text-[#1C1917]">$48,500</span>
+              <span class="text-xs text-gray-500 font-medium">/ $65,000</span>
+            </div>
+            <p class="text-[11.5px] text-[#6B625A] mt-1">Well within budget bounds</p>
+          </div>
+
+        </div>
+
+        <!-- EVENT CARDS CAROUSEL GRID -->
+        <section class="space-y-4">
+          <div class="flex items-center justify-between">
+            <h2 class="font-serif-title text-2xl font-bold text-[#1C1917]">
+              Upcoming Celebration Events
+            </h2>
+            <div class="flex items-center gap-2">
+              <button onclick="scrollEventCards('left')" class="p-2 rounded-full bg-white border border-gray-200 text-gray-600 hover:text-gray-900 hover:bg-gray-50 shadow-xs" title="Previous">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" /></svg>
+              </button>
+              <button onclick="scrollEventCards('right')" class="p-2 rounded-full bg-white border border-gray-200 text-gray-600 hover:text-gray-900 hover:bg-gray-50 shadow-xs" title="Next">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" /></svg>
+              </button>
+            </div>
+          </div>
+
+          <div id="event-cards-container" class="flex gap-5 overflow-x-auto custom-scrollbar pb-3 scroll-smooth">
+            
+            <div class="min-w-[280px] sm:min-w-[320px] max-w-[340px] flex-shrink-0 bg-white rounded-2xl overflow-hidden shadow-sm border border-gray-200/80 group hover:shadow-md transition-all">
+              <div class="relative h-44 overflow-hidden">
+                <img src="assets/images-02/testimonials-hero-bg.webp" alt="Engagement" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
+                <div class="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent"></div>
+                <div class="absolute bottom-3 left-3 bg-white/90 backdrop-blur-md px-3 py-1.5 rounded-lg shadow-sm border border-white/80 flex items-center gap-1.5 text-xs font-bold text-[#685D54]">
+                  <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
+                  <span id="live-timer-1">36 : 17 : 42 : 11</span>
+                </div>
+              </div>
+              <div class="p-5 space-y-2 text-left">
+                <h3 class="font-serif-title text-xl font-bold text-[#1C1917]">Engagement</h3>
+                <p class="text-xs text-[#6B625A] font-normal">Total task: <span class="font-bold text-[#1C1917]">24</span></p>
+                <p class="text-xs text-[#6B625A] font-normal">Venue: <span class="font-semibold text-[#1C1917]">Pan Pacific Estate</span></p>
+              </div>
+            </div>
+
+            <div class="min-w-[280px] sm:min-w-[320px] max-w-[340px] flex-shrink-0 bg-white rounded-2xl overflow-hidden shadow-sm border border-gray-200/80 group hover:shadow-md transition-all">
+              <div class="relative h-44 overflow-hidden">
+                <img src="assets/images-01/autumn-romance-countryside.webp" alt="Mehndi" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
+                <div class="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent"></div>
+                <div class="absolute bottom-3 left-3 bg-white/90 backdrop-blur-md px-3 py-1.5 rounded-lg shadow-sm border border-white/80 flex items-center gap-1.5 text-xs font-bold text-[#685D54]">
+                  <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
+                  <span id="live-timer-2">45 : 12 : 30 : 08</span>
+                </div>
+              </div>
+              <div class="p-5 space-y-2 text-left">
+                <h3 class="font-serif-title text-xl font-bold text-[#1C1917]">Mehndi &amp; Rehearsal</h3>
+                <p class="text-xs text-[#6B625A] font-normal">Total task: <span class="font-bold text-[#1C1917]">18</span></p>
+                <p class="text-xs text-[#6B625A] font-normal">Venue: <span class="font-semibold text-[#1C1917]">Grand Rosewood Gardens</span></p>
+              </div>
+            </div>
+
+            <div class="min-w-[280px] sm:min-w-[320px] max-w-[340px] flex-shrink-0 bg-white rounded-2xl overflow-hidden shadow-sm border border-gray-200/80 group hover:shadow-md transition-all">
+              <div class="relative h-44 overflow-hidden">
+                <img src="assets/images-01/contact-hero-bg.webp" alt="Wedding" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
+                <div class="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent"></div>
+                <div class="absolute bottom-3 left-3 bg-white/90 backdrop-blur-md px-3 py-1.5 rounded-lg shadow-sm border border-white/80 flex items-center gap-1.5 text-xs font-bold text-[#685D54]">
+                  <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
+                  <span id="live-timer-3">120 : 08 : 15 : 45</span>
+                </div>
+              </div>
+              <div class="p-5 space-y-2 text-left">
+                <h3 class="font-serif-title text-xl font-bold text-[#1C1917]">Wedding Ceremony</h3>
+                <p class="text-xs text-[#6B625A] font-normal">Total task: <span class="font-bold text-[#1C1917]">32</span></p>
+                <p class="text-xs text-[#6B625A] font-normal">Venue: <span class="font-semibold text-[#1C1917]">Château de Courcelette</span></p>
+              </div>
+            </div>
+
+            <div class="min-w-[280px] sm:min-w-[320px] max-w-[340px] flex-shrink-0 bg-white rounded-2xl overflow-hidden shadow-sm border border-gray-200/80 group hover:shadow-md transition-all">
+              <div class="relative h-44 overflow-hidden">
+                <img src="assets/images-01/couple-highlight-3.webp" alt="Reception" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
+                <div class="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent"></div>
+                <div class="absolute top-3 right-3 bg-[#685D54] text-white text-[11px] font-bold px-3 py-1 rounded-full uppercase tracking-wider shadow-sm"><a href="javascript:void(0)" onclick="goTo404()">+ Add Data</a></div>
+              </div>
+              <div class="p-5 space-y-2 text-left">
+                <h3 class="font-serif-title text-xl font-bold text-[#1C1917]">Grand Reception</h3>
+                <p class="text-xs text-[#6B625A] font-normal">Total task: <a href="javascript:void(0)" onclick="goTo404()" class="text-[#685D54] font-bold hover:underline">+Add Task</a></p>
+                <p class="text-xs text-[#6B625A] font-normal">Venue: <a href="javascript:void(0)" onclick="goTo404()" class="text-[#685D54] font-bold hover:underline">+Add Venue</a></p>
+              </div>
+            </div>
+
+          </div>
+        </section>
+
+        <!-- EVENT TASK LIST TABLE SECTION -->
+        <section class="bg-white rounded-2xl border border-gray-200/80 p-6 sm:p-8 shadow-sm space-y-6">
+          <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+            <div class="space-y-1">
+              <div class="flex items-center gap-2">
+                <h2 class="font-serif-title text-2xl font-bold text-[#1C1917]">Engagement Event Task</h2>
+                <button class="text-gray-400 hover:text-gray-700 p-1" title="Select Event">
+                  <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" /></svg>
+                </button>
+              </div>
+              <p class="text-xs text-[#7A7067]">Event date: <span class="font-medium text-[#1C1917]">23 February 2026</span></p>
+            </div>
+            <div>
+              <button onclick="goTo404()" class="px-5 py-2.5 bg-[#685D54] hover:bg-[#544B43] text-white text-[12px] font-bold tracking-[0.12em] uppercase rounded-xl transition-all shadow-sm flex items-center gap-2">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M12 4v16m8-8H4" /></svg>
+                Add Task
+              </button>
+            </div>
+          </div>
+
+          <div class="flex items-center border-b border-gray-100 gap-6 text-[14px] font-medium">
+            <button id="tab-task-lists" onclick="switchTaskTab('lists')" class="pb-3 border-b-2 border-[#685D54] font-bold text-[#685D54] transition-all">Task Lists</button>
+            <button id="tab-timeline-view" onclick="switchTaskTab('timeline')" class="pb-3 border-b-2 border-transparent text-gray-500 hover:text-gray-800 transition-all">Timeline View</button>
+          </div>
+
+          <div class="overflow-x-auto custom-scrollbar">
+            <table id="tasks-data-table" class="w-full text-left border-collapse min-w-[850px]">
+              <thead>
+                <tr class="border-b border-gray-200/80 text-[11px] font-bold tracking-[0.14em] uppercase text-[#7A7067]">
+                  <th class="py-3.5 px-3">Sl</th>
+                  <th class="py-3.5 px-3">Task ID</th>
+                  <th class="py-3.5 px-3">Service Category</th>
+                  <th class="py-3.5 px-3">Service Name</th>
+                  <th class="py-3.5 px-3">Next Step</th>
+                  <th class="py-3.5 px-3">Event Date</th>
+                  <th class="py-3.5 px-3 text-right">Status</th>
+                </tr>
+              </thead>
+              <tbody class="divide-y divide-gray-100 text-[13px] text-[#1C1917]">
+                <tr class="hover:bg-[#FAF9F6] transition-colors">
+                  <td class="py-4 px-3 text-gray-400">01</td>
+                  <td class="py-4 px-3 font-bold text-[#685D54]">ORD-1001</td>
+                  <td class="py-4 px-3">Venue</td>
+                  <td class="py-4 px-3 font-medium">Royal Banquet Hall</td>
+                  <td class="py-4 px-3 text-gray-600">Awaiting Provider Approval</td>
+                  <td class="py-4 px-3 text-gray-600">23 February 2026</td>
+                  <td class="py-4 px-3 text-right"><span class="px-3.5 py-1 rounded-full text-[11.5px] font-bold bg-purple-100 text-purple-700">Confirmed</span></td>
+                </tr>
+                <tr class="hover:bg-[#FAF9F6] transition-colors">
+                  <td class="py-4 px-3 text-gray-400">02</td>
+                  <td class="py-4 px-3 font-bold text-[#685D54]">ORD-1002</td>
+                  <td class="py-4 px-3">Catering</td>
+                  <td class="py-4 px-3 font-medium">Gaston Gourmet Feast</td>
+                  <td class="py-4 px-3 text-gray-600">Menu Tasting Scheduled</td>
+                  <td class="py-4 px-3 text-gray-600">23 February 2026</td>
+                  <td class="py-4 px-3 text-right"><span class="px-3.5 py-1 rounded-full text-[11.5px] font-bold bg-indigo-100 text-indigo-700">In Progress</span></td>
+                </tr>
+                <tr class="hover:bg-[#FAF9F6] transition-colors">
+                  <td class="py-4 px-3 text-gray-400">03</td>
+                  <td class="py-4 px-3 font-bold text-[#685D54]">ORD-1003</td>
+                  <td class="py-4 px-3">Floral</td>
+                  <td class="py-4 px-3 font-medium">Aura Botanical Arch</td>
+                  <td class="py-4 px-3 text-gray-600">Design Draft Review</td>
+                  <td class="py-4 px-3 text-gray-600">23 February 2026</td>
+                  <td class="py-4 px-3 text-right"><span class="px-3.5 py-1 rounded-full text-[11.5px] font-bold bg-sky-100 text-sky-700">Preparing</span></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+        </section>
+
+      </div>
+
+      <!-- ================= 3. TASKS & TIMELINE TAB CONTENT ================= -->
+      <div id="tab-content-tasks" class="tab-pane hidden space-y-8 animate-fade-in">
+        <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 bg-white p-6 rounded-2xl border border-gray-200/80 shadow-sm">
+          <div>
+            <h1 class="font-serif-title text-2xl font-bold text-[#1C1917]">Wedding Tasks &amp; Master Timeline</h1>
+            <p class="text-xs text-[#7A7067]">Manage all upcoming planning milestones and deliverables.</p>
+          </div>
+          <button onclick="goTo404()" class="px-5 py-2.5 bg-[#685D54] hover:bg-[#544B43] text-white text-xs font-bold uppercase tracking-wider rounded-xl transition-all shadow-sm">
+            + New Task
+          </button>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-4 gap-4">
+          <div class="bg-white p-5 rounded-2xl border border-gray-200/70 shadow-sm">
+            <div class="flex justify-between items-center mb-3">
+              <span class="text-xs font-bold uppercase tracking-wider text-gray-500">To Do</span>
+              <span class="px-2.5 py-0.5 rounded-full text-xs font-bold bg-gray-100 text-gray-700 count-animate" data-target="12">0</span>
+            </div>
+            <div class="space-y-3">
+              <div class="p-3.5 bg-[#FAF9F6] rounded-xl border border-gray-200/60 hover:shadow-sm transition-all cursor-pointer">
+                <p class="text-xs font-bold text-[#1C1917]">Finalize Floral Arrangements</p>
+                <p class="text-[11px] text-gray-500 mt-1">Due: 15 Oct 2025</p>
+              </div>
+              <div class="p-3.5 bg-[#FAF9F6] rounded-xl border border-gray-200/60 hover:shadow-sm transition-all cursor-pointer">
+                <p class="text-xs font-bold text-[#1C1917]">Select Wedding Cake Flavors</p>
+                <p class="text-[11px] text-gray-500 mt-1">Due: 20 Oct 2025</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="bg-white p-5 rounded-2xl border border-gray-200/70 shadow-sm">
+            <div class="flex justify-between items-center mb-3">
+              <span class="text-xs font-bold uppercase tracking-wider text-indigo-600">In Progress</span>
+              <span class="px-2.5 py-0.5 rounded-full text-xs font-bold bg-indigo-100 text-indigo-700 count-animate" data-target="18">0</span>
+            </div>
+            <div class="space-y-3">
+              <div class="p-3.5 bg-[#FAF9F6] rounded-xl border border-gray-200/60 hover:shadow-sm transition-all cursor-pointer">
+                <p class="text-xs font-bold text-[#1C1917]">Bridal Gown Fitting #2</p>
+                <p class="text-[11px] text-gray-500 mt-1">Due: 28 Oct 2025</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="bg-white p-5 rounded-2xl border border-gray-200/70 shadow-sm">
+            <div class="flex justify-between items-center mb-3">
+              <span class="text-xs font-bold uppercase tracking-wider text-amber-600">Review</span>
+              <span class="px-2.5 py-0.5 rounded-full text-xs font-bold bg-amber-100 text-amber-700 count-animate" data-target="8">0</span>
+            </div>
+            <div class="space-y-3">
+              <div class="p-3.5 bg-[#FAF9F6] rounded-xl border border-gray-200/60 hover:shadow-sm transition-all cursor-pointer">
+                <p class="text-xs font-bold text-[#1C1917]">Catering Tasting Menu</p>
+                <p class="text-[11px] text-gray-500 mt-1">Due: 05 Nov 2025</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="bg-white p-5 rounded-2xl border border-gray-200/70 shadow-sm">
+            <div class="flex justify-between items-center mb-3">
+              <span class="text-xs font-bold uppercase tracking-wider text-emerald-600">Completed</span>
+              <span class="px-2.5 py-0.5 rounded-full text-xs font-bold bg-emerald-100 text-emerald-700 count-animate" data-target="74">0</span>
+            </div>
+            <div class="space-y-3">
+              <div class="p-3.5 bg-[#FAF9F6] rounded-xl border border-gray-200/60 hover:shadow-sm transition-all cursor-pointer opacity-75">
+                <p class="text-xs font-bold text-gray-500 line-through">Book Château Venue</p>
+                <p class="text-[11px] text-emerald-600 font-semibold mt-1">&check; Done</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ================= 4. VENDORS TAB CONTENT ================= -->
+      <div id="tab-content-vendors" class="tab-pane hidden space-y-8 animate-fade-in">
+        <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 bg-white p-6 rounded-2xl border border-gray-200/80 shadow-sm">
+          <div>
+            <h1 class="font-serif-title text-2xl font-bold text-[#1C1917]">Hired Vendor Directory</h1>
+            <p class="text-xs text-[#7A7067]">Manage contracts, contacts, and payments for your vendors.</p>
+          </div>
+          <button onclick="goTo404()" class="px-5 py-2.5 bg-[#685D54] hover:bg-[#544B43] text-white text-xs font-bold uppercase tracking-wider rounded-xl transition-all shadow-sm">
+            + Add New Vendor
+          </button>
+        </div>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+          <div class="bg-white rounded-2xl p-6 border border-gray-200/80 shadow-sm hover:shadow-md transition-all group">
+            <div class="flex items-center gap-4 mb-4">
+              <div class="w-12 h-12 rounded-xl bg-purple-100 text-purple-700 font-bold flex items-center justify-center text-lg">P</div>
+              <div>
+                <h3 class="font-serif-title text-lg font-bold text-[#1C1917]">Lumière Studios</h3>
+                <p class="text-xs text-gray-500">Photography &amp; Videography</p>
+              </div>
+            </div>
+            <p class="text-xs text-gray-600 mb-4">Package: Full Day Luxury Coverage + Drone Shots</p>
+            <div class="flex justify-between items-center pt-3 border-t border-gray-100">
+              <span class="text-xs font-bold text-[#685D54]">$4,500</span>
+              <span class="px-3 py-1 bg-emerald-100 text-emerald-700 text-xs font-bold rounded-full">Confirmed</span>
+            </div>
+          </div>
+
+          <div class="bg-white rounded-2xl p-6 border border-gray-200/80 shadow-sm hover:shadow-md transition-all group">
+            <div class="flex items-center gap-4 mb-4">
+              <div class="w-12 h-12 rounded-xl bg-amber-100 text-amber-700 font-bold flex items-center justify-center text-lg">F</div>
+              <div>
+                <h3 class="font-serif-title text-lg font-bold text-[#1C1917]">Aura Florals</h3>
+                <p class="text-xs text-gray-500">Floral Arrangements &amp; Arches</p>
+              </div>
+            </div>
+            <p class="text-xs text-gray-600 mb-4">Package: Ceremony Arch &amp; Table Centerpieces</p>
+            <div class="flex justify-between items-center pt-3 border-t border-gray-100">
+              <span class="text-xs font-bold text-[#685D54]">$3,200</span>
+              <span class="px-3 py-1 bg-indigo-100 text-indigo-700 text-xs font-bold rounded-full">In Progress</span>
+            </div>
+          </div>
+
+          <div class="bg-white rounded-2xl p-6 border border-gray-200/80 shadow-sm hover:shadow-md transition-all group">
+            <div class="flex items-center gap-4 mb-4">
+              <div class="w-12 h-12 rounded-xl bg-emerald-100 text-emerald-700 font-bold flex items-center justify-center text-lg">C</div>
+              <div>
+                <h3 class="font-serif-title text-lg font-bold text-[#1C1917]">Gaston Gourmet Feast</h3>
+                <p class="text-xs text-gray-500">Catering &amp; Beverage</p>
+              </div>
+            </div>
+            <p class="text-xs text-gray-600 mb-4">Package: 4-Course Fine Dining &amp; Open Bar</p>
+            <div class="flex justify-between items-center pt-3 border-t border-gray-100">
+              <span class="text-xs font-bold text-[#685D54]">$12,800</span>
+              <span class="px-3 py-1 bg-emerald-100 text-emerald-700 text-xs font-bold rounded-full">Confirmed</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ================= 5. GUESTS TAB CONTENT ================= -->
+      <div id="tab-content-guests" class="tab-pane hidden space-y-8 animate-fade-in">
+        <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 bg-white p-6 rounded-2xl border border-gray-200/80 shadow-sm">
+          <div>
+            <h1 class="font-serif-title text-2xl font-bold text-[#1C1917]">Guest List &amp; RSVPs</h1>
+            <p class="text-xs text-[#7A7067]">Track attendee responses, dietary requirements, and seating.</p>
+          </div>
+          <button onclick="goTo404()" class="px-5 py-2.5 bg-[#685D54] hover:bg-[#544B43] text-white text-xs font-bold uppercase tracking-wider rounded-xl transition-all shadow-sm">
+            Send RSVP Reminders
+          </button>
+        </div>
+
+        <div class="grid grid-cols-1 sm:grid-cols-4 gap-4">
+          <div class="bg-white p-5 rounded-2xl border border-gray-200/70 shadow-sm text-center">
+            <span class="text-xs font-bold uppercase tracking-wider text-gray-500">Total Invited</span>
+            <div class="font-serif-title text-3xl font-bold text-[#1C1917] mt-2 count-animate" data-target="220">0</div>
+          </div>
+          <div class="bg-white p-5 rounded-2xl border border-gray-200/70 shadow-sm text-center">
+            <span class="text-xs font-bold uppercase tracking-wider text-emerald-600">Attending</span>
+            <div class="font-serif-title text-3xl font-bold text-emerald-600 mt-2 count-animate" data-target="184">0</div>
+          </div>
+          <div class="bg-white p-5 rounded-2xl border border-gray-200/70 shadow-sm text-center">
+            <span class="text-xs font-bold uppercase tracking-wider text-rose-600">Declined</span>
+            <div class="font-serif-title text-3xl font-bold text-rose-600 mt-2 count-animate" data-target="12">0</div>
+          </div>
+          <div class="bg-white p-5 rounded-2xl border border-gray-200/70 shadow-sm text-center">
+            <span class="text-xs font-bold uppercase tracking-wider text-amber-600">Pending</span>
+            <div class="font-serif-title text-3xl font-bold text-amber-600 mt-2 count-animate" data-target="24">0</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ================= 6. BUDGET TAB CONTENT ================= -->
+      <div id="tab-content-budget" class="tab-pane hidden space-y-8 animate-fade-in">
+        <div class="bg-white p-6 rounded-2xl border border-gray-200/80 shadow-sm space-y-6">
+          <div class="flex justify-between items-center">
+            <div>
+              <h1 class="font-serif-title text-2xl font-bold text-[#1C1917]">Budget Breakdown</h1>
+              <p class="text-xs text-[#7A7067]">Allocated vs Actual Expenses.</p>
+            </div>
+            <span class="text-xs font-bold text-[#685D54] uppercase tracking-wider bg-[#F5ECE3] px-4 py-2 rounded-xl">$65,000 Total Budget</span>
+          </div>
+
+          <div class="space-y-4">
+            <div>
+              <div class="flex justify-between text-xs font-bold mb-1">
+                <span>Venue &amp; Catering (35%)</span>
+                <span>$22,750 / $22,750</span>
+              </div>
+              <div class="w-full h-3 bg-gray-100 rounded-full overflow-hidden">
+                <div class="h-full bg-[#685D54] w-[100%]"></div>
+              </div>
+            </div>
+            <div>
+              <div class="flex justify-between text-xs font-bold mb-1">
+                <span>Photography &amp; Videography (15%)</span>
+                <span>$7,500 / $9,750</span>
+              </div>
+              <div class="w-full h-3 bg-gray-100 rounded-full overflow-hidden">
+                <div class="h-full bg-emerald-500 w-[77%]"></div>
+              </div>
+            </div>
+            <div>
+              <div class="flex justify-between text-xs font-bold mb-1">
+                <span>Floral &amp; Decor (15%)</span>
+                <span>$6,800 / $9,750</span>
+              </div>
+              <div class="w-full h-3 bg-gray-100 rounded-full overflow-hidden">
+                <div class="h-full bg-indigo-500 w-[70%]"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ================= 7. INVITATIONS TAB CONTENT ================= -->
+      <div id="tab-content-invitations" class="tab-pane hidden space-y-8 animate-fade-in">
+        <div class="bg-white p-6 rounded-2xl border border-gray-200/80 shadow-sm space-y-6">
+          <h1 class="font-serif-title text-2xl font-bold text-[#1C1917]">Invitations &amp; Stationery</h1>
+          <div class="grid grid-cols-1 sm:grid-cols-3 gap-6">
+            <div class="bg-[#FAF9F6] p-4 rounded-xl border border-gray-200 text-center space-y-3 group hover:shadow-md transition-all">
+              <div class="aspect-[3/4] overflow-hidden rounded-lg bg-gray-100">
+                <img src="assets/images-02/our-story-stationery.webp" alt="Save The Date" class="w-full h-full object-cover group-hover:scale-105 transition-transform" />
+              </div>
+              <h3 class="font-serif-title font-bold text-base">Save The Date</h3>
+              <p class="text-xs text-emerald-600 font-semibold">&check; Sent to 220 Guests</p>
+            </div>
+            <div class="bg-[#FAF9F6] p-4 rounded-xl border border-gray-200 text-center space-y-3 group hover:shadow-md transition-all">
+              <div class="aspect-[3/4] overflow-hidden rounded-lg bg-gray-100">
+                <img src="assets/images-02/theme-modern-minimalist.webp" alt="Formal Suite" class="w-full h-full object-cover group-hover:scale-105 transition-transform" />
+              </div>
+              <h3 class="font-serif-title font-bold text-base">Formal Invitation Suite</h3>
+              <p class="text-xs text-indigo-600 font-semibold">&bull; Printing Draft</p>
+            </div>
+            <div class="bg-[#FAF9F6] p-4 rounded-xl border border-gray-200 text-center space-y-3 group hover:shadow-md transition-all">
+              <div class="aspect-[3/4] overflow-hidden rounded-lg bg-gray-100">
+                <img src="assets/images-02/finer-details-installations.webp" alt="Menu Cards" class="w-full h-full object-cover group-hover:scale-105 transition-transform" />
+              </div>
+              <h3 class="font-serif-title font-bold text-base">Menu &amp; Place Cards</h3>
+              <p class="text-xs text-gray-500 font-normal">Design Ready</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ================= 8. REPORTS TAB CONTENT ================= -->
+      <div id="tab-content-reports" class="tab-pane hidden space-y-8 animate-fade-in">
+        <div class="bg-white p-6 rounded-2xl border border-gray-200/80 shadow-sm space-y-6">
+          <div class="flex justify-between items-center">
+            <h1 class="font-serif-title text-2xl font-bold text-[#1C1917]">Wedding Analytics &amp; Reports</h1>
+            <button onclick="goTo404()" class="px-5 py-2.5 bg-[#685D54] hover:bg-[#544B43] text-white text-xs font-bold uppercase tracking-wider rounded-xl shadow-sm">
+              Export PDF
+            </button>
+          </div>
+          <div class="grid grid-cols-1 sm:grid-cols-3 gap-6 text-center">
+            <div class="p-6 bg-[#FAF9F6] rounded-xl border border-gray-200">
+              <span class="text-xs font-bold text-gray-500 uppercase">Overall Progress</span>
+              <div class="font-serif-title text-4xl font-bold text-[#685D54] mt-2 count-animate" data-target="88">0</div>
+              <span class="text-xs text-gray-500">% Completed</span>
+            </div>
+            <div class="p-6 bg-[#FAF9F6] rounded-xl border border-gray-200">
+              <span class="text-xs font-bold text-gray-500 uppercase">Vendor Payments</span>
+              <div class="font-serif-title text-4xl font-bold text-[#685D54] mt-2 count-animate" data-target="75">0</div>
+              <span class="text-xs text-gray-500">% Settled</span>
+            </div>
+            <div class="p-6 bg-[#FAF9F6] rounded-xl border border-gray-200">
+              <span class="text-xs font-bold text-gray-500 uppercase">RSVP Rate</span>
+              <div class="font-serif-title text-4xl font-bold text-[#685D54] mt-2 count-animate" data-target="84">0</div>
+              <span class="text-xs text-gray-500">% Responded</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ================= 9. SETTINGS TAB CONTENT ================= -->
+      <div id="tab-content-settings" class="tab-pane hidden space-y-8 animate-fade-in">
+        <div class="bg-white p-6 sm:p-8 rounded-2xl border border-gray-200/80 shadow-sm space-y-6 max-w-[800px]">
+          <h1 class="font-serif-title text-2xl font-bold text-[#1C1917]">Couple Profile Settings</h1>
+          <form onsubmit="event.preventDefault(); var emailVal = document.getElementById('settings-email').value.trim(); if (!emailVal.toLowerCase().endsWith('.com')) { alert('Email address must end with .com'); return false; } goTo404();" class="space-y-5">
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+              <div>
+                <label class="block text-xs font-bold text-[#7A7067] uppercase mb-1">Bride's Name</label>
+                <input type="text" value="Cyndy Lillibridge" class="w-full px-4 py-2.5 border border-gray-200 rounded-lg text-xs" />
+              </div>
+              <div>
+                <label class="block text-xs font-bold text-[#7A7067] uppercase mb-1">Groom's Name</label>
+                <input type="text" value="James Sterling" class="w-full px-4 py-2.5 border border-gray-200 rounded-lg text-xs" />
+              </div>
+            </div>
+            <div>
+              <label class="block text-xs font-bold text-[#7A7067] uppercase mb-1">Wedding Target Date</label>
+              <input type="date" value="2026-02-23" class="w-full px-4 py-2.5 border border-gray-200 rounded-lg text-xs" />
+            </div>
+            <div>
+              <label class="block text-xs font-bold text-[#7A7067] uppercase mb-1">Primary Email</label>
+              <input id="settings-email" type="email" value="cyndy@example.com" class="w-full px-4 py-2.5 border border-gray-200 rounded-lg text-xs" />
+            </div>
+            <button type="submit" class="px-6 py-3 bg-[#685D54] hover:bg-[#544B43] text-white text-xs font-bold uppercase tracking-wider rounded-xl shadow-sm">
+              Save Changes
+            </button>
+          </form>
+        </div>
+      </div>
+
+    </main>
+
+  </div>
+
+  <!-- JAVASCRIPT FOR INTERACTIVE TAB SWITCHING & COUNTER ANIMATIONS -->
+  <script>
+    // 0. Track current active tab so 404 "Back" can restore it
+    let currentDashboardTab = 'dashboard';
+
+    // Helper: remember the active tab, then send user to the 404 page
+    function goTo404() {
+      sessionStorage.setItem('wedding_return_tab', currentDashboardTab);
+      window.location.href = '404.html';
+    }
+
+    // 1. Sidebar Tab Switching Engine
+    function switchSidebarTab(tabName) {
+      currentDashboardTab = tabName;
+      // Hide all content panes
+      const allPanes = document.querySelectorAll('.tab-pane');
+      allPanes.forEach(pane => pane.classList.add('hidden'));
+
+      // Remove active class from all sidebar buttons
+      const allButtons = document.querySelectorAll('[id^="nav-btn-"]');
+      allButtons.forEach(btn => {
+        btn.classList.remove('sidebar-link-active', 'font-semibold', 'text-[#685D54]', 'bg-[#F5ECE3]/80');
+        btn.classList.add('font-medium', 'text-gray-600');
+        const dot = btn.querySelector('.tab-dot');
+        if (dot) dot.classList.add('hidden');
+      });
+
+      // Show targeted pane
+      const targetPane = document.getElementById(`tab-content-${tabName}`);
+      if (targetPane) {
+        targetPane.classList.remove('hidden');
+      }
+
+      // Highlight target sidebar button
+      const targetBtn = document.getElementById(`nav-btn-${tabName}`);
+      if (targetBtn) {
+        targetBtn.classList.add('sidebar-link-active', 'font-semibold', 'text-[#685D54]', 'bg-[#F5ECE3]/80');
+        targetBtn.classList.remove('font-medium', 'text-gray-600');
+        const dot = targetBtn.querySelector('.tab-dot');
+        if (dot) dot.classList.remove('hidden');
+      }
+
+      // Trigger counter animation for newly visible tab
+      triggerCounterAnimations(targetPane);
+
+      // Close mobile drawer if open
+      const sidebarDrawer = document.getElementById('sidebar-drawer');
+      const sidebarBackdrop = document.getElementById('sidebar-backdrop');
+      if (sidebarDrawer) {
+        sidebarDrawer.classList.add('-translate-x-full');
+      }
+      if (sidebarBackdrop) {
+        sidebarBackdrop.classList.add('hidden');
+      }
+    }
+
+    // 2. Animated Number Counters
+    function triggerCounterAnimations(parentContainer) {
+      if (!parentContainer) return;
+      const counterElements = parentContainer.querySelectorAll('.count-animate');
+      counterElements.forEach(el => {
+        const target = parseInt(el.getAttribute('data-target') || '0', 10);
+        let count = 0;
+        const speed = Math.max(1, Math.floor(target / 25));
+        const timer = setInterval(() => {
+          count += speed;
+          if (count >= target) {
+            count = target;
+            clearInterval(timer);
+          }
+          el.textContent = count;
+        }, 30);
+      });
+    }
+
+    // Initial counter trigger on load
+    document.addEventListener('DOMContentLoaded', () => {
+      triggerCounterAnimations(document.getElementById('tab-content-events'));
+    });
+
+    // 3. Profile Dropdown Toggle
+    const profileBtn = document.getElementById('user-profile-menu-btn');
+    const profileMenu = document.getElementById('profile-dropdown-menu');
+    if (profileBtn && profileMenu) {
+      profileBtn.addEventListener('click', (e) => {
+        e.stopPropagation();
+        profileMenu.classList.toggle('hidden');
+      });
+      document.addEventListener('click', () => {
+        profileMenu.classList.add('hidden');
+      });
+    }
+
+    // 4. Mobile Sidebar Drawer & Backdrop Toggle
+    const sidebarBtn = document.getElementById('sidebar-toggle-btn');
+    const sidebarDrawer = document.getElementById('sidebar-drawer');
+    const sidebarBackdrop = document.getElementById('sidebar-backdrop');
+    if (sidebarBtn && sidebarDrawer) {
+      sidebarBtn.addEventListener('click', () => {
+        const isClosed = sidebarDrawer.classList.contains('-translate-x-full');
+        if (isClosed) {
+          sidebarDrawer.classList.remove('-translate-x-full');
+          if (sidebarBackdrop) sidebarBackdrop.classList.remove('hidden');
+        } else {
+          sidebarDrawer.classList.add('-translate-x-full');
+          if (sidebarBackdrop) sidebarBackdrop.classList.add('hidden');
+        }
+      });
+    }
+    if (sidebarBackdrop && sidebarDrawer) {
+      sidebarBackdrop.addEventListener('click', () => {
+        sidebarDrawer.classList.add('-translate-x-full');
+        sidebarBackdrop.classList.add('hidden');
+      });
+    }
+
+    // 5. Logout Handler
+    function handleLogout() {
+      localStorage.removeItem('wedding_user_email');
+      localStorage.removeItem('wedding_user_role');
+      window.location.href = 'login.html';
+    }
+
+    // 6. Live Countdown Timers
+    let secondsCounter1 = 36 * 86400 + 17 * 3600 + 42 * 60 + 11;
+    let secondsCounter2 = 45 * 86400 + 12 * 3600 + 30 * 60 + 8;
+    let secondsCounter3 = 120 * 86400 + 8 * 3600 + 15 * 60 + 45;
+
+    function formatTime(totalSec) {
+      const d = Math.floor(totalSec / 86400);
+      const h = Math.floor((totalSec % 86400) / 3600);
+      const m = Math.floor((totalSec % 3600) / 60);
+      const s = totalSec % 60;
+      return `${String(d).padStart(2, '0')} : ${String(h).padStart(2, '0')} : ${String(m).padStart(2, '0')} : ${String(s).padStart(2, '0')}`;
+    }
+
+    setInterval(() => {
+      secondsCounter1 = Math.max(0, secondsCounter1 - 1);
+      secondsCounter2 = Math.max(0, secondsCounter2 - 1);
+      secondsCounter3 = Math.max(0, secondsCounter3 - 1);
+
+      const el1 = document.getElementById('live-timer-1');
+      const el2 = document.getElementById('live-timer-2');
+      const el3 = document.getElementById('live-timer-3');
+
+      if (el1) el1.textContent = formatTime(secondsCounter1);
+      if (el2) el2.textContent = formatTime(secondsCounter2);
+      if (el3) el3.textContent = formatTime(secondsCounter3);
+    }, 1000);
+
+    // 7. Scroll Event Cards Carousel
+    function scrollEventCards(direction) {
+      const container = document.getElementById('event-cards-container');
+      if (!container) return;
+      const scrollAmount = direction === 'left' ? -320 : 320;
+      container.scrollBy({ left: scrollAmount, behavior: 'smooth' });
+    }
+
+    // 9. Add Task Handler
+    let taskCount = 3;
+    function addNewTaskRow() {
+      taskCount++;
+      const tbody = document.querySelector('#tasks-data-table tbody');
+      if (!tbody) return;
+      
+      const newRow = document.createElement('tr');
+      newRow.className = 'hover:bg-[#FAF9F6] transition-colors group animate-fade-in';
+      newRow.innerHTML = `
+        <td class="py-4 px-3 font-semibold text-gray-400">${String(taskCount).padStart(2, '0')}</td>
+        <td class="py-4 px-3 font-bold text-[#685D54]">ORD-100${taskCount}</td>
+        <td class="py-4 px-3">Decor &amp; Style</td>
+        <td class="py-4 px-3 font-medium">Bespoke Table Setting ${taskCount}</td>
+        <td class="py-4 px-3 text-gray-600">Pending Review</td>
+        <td class="py-4 px-3 text-gray-600">23 February 2026</td>
+        <td class="py-4 px-3 text-right">
+          <span class="inline-block px-3.5 py-1 rounded-full text-[11.5px] font-bold bg-sky-100 text-sky-700">Preparing</span>
+        </td>
+      `;
+      tbody.appendChild(newRow);
+    }
+
+    // 10. Table Sub-tabs Switcher
+    function switchTaskTab(tab) {
+      const listsTab = document.getElementById('tab-task-lists');
+      const timelineTab = document.getElementById('tab-timeline-view');
+      
+      if (tab === 'lists') {
+        listsTab.classList.add('border-[#685D54]', 'text-[#685D54]', 'font-bold');
+        listsTab.classList.remove('border-transparent', 'text-gray-500');
+        timelineTab.classList.remove('border-[#685D54]', 'text-[#685D54]', 'font-bold');
+        timelineTab.classList.add('border-transparent', 'text-gray-500');
+      } else {
+        timelineTab.classList.add('border-[#685D54]', 'text-[#685D54]', 'font-bold');
+        timelineTab.classList.remove('border-transparent', 'text-gray-500');
+        listsTab.classList.remove('border-[#685D54]', 'text-[#685D54]', 'font-bold');
+        listsTab.classList.add('border-transparent', 'text-gray-500');
+      }
+    }
+
+    // 11. Display Logged-In User Email & Role
+    (function displayLoggedInUser() {
+      const email = localStorage.getItem('wedding_user_email') || '';
+      const role = localStorage.getItem('wedding_user_role') || 'couple';
+      if (role === 'vendor') {
+        window.location.href = 'vendor-dashboard.html';
+        return;
+      }
+      if (email) {
+        const large = document.getElementById('profile-email-large');
+        const small = document.getElementById('profile-email-small');
+        const settings = document.getElementById('settings-email');
+        const greeting = document.getElementById('profile-greeting-name');
+        if (large) large.textContent = email;
+        if (small) small.textContent = email;
+        if (settings) settings.value = email;
+        if (greeting) {
+          const username = email.split('@')[0];
+          greeting.textContent = username.charAt(0).toUpperCase() + username.slice(1);
+        }
+      }
+      const roleText = role === 'vendor' ? 'Vendor Account' : 'Couple Account';
+      const roleLarge = document.getElementById('profile-role-large');
+      const roleSmall = document.getElementById('profile-role-small');
+      if (roleLarge) roleLarge.textContent = roleText;
+      if (roleSmall) roleSmall.textContent = roleText;
+    })();
+
+    // 12. Restore the previous tab when returning from the 404 page
+    (function restoreReturnTab() {
+      const returnTab = sessionStorage.getItem('wedding_return_tab');
+      if (returnTab && document.getElementById(`tab-content-${returnTab}`)) {
+        sessionStorage.removeItem('wedding_return_tab');
+        currentDashboardTab = returnTab;
+        switchSidebarTab(returnTab);
+      } else if (returnTab) {
+        sessionStorage.removeItem('wedding_return_tab');
+      }
+    })();
+  </script>
+
+</body>
+</html>

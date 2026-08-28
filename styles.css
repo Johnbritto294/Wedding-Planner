@@ -1,0 +1,510 @@
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400;1,600;1,700&family=Plus+Jakarta+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap');
+
+:root {
+  --font-serif: 'Playfair Display', Georgia, serif;
+  --font-sans: 'Plus Jakarta Sans', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  --color-brand-primary: #5C524A;
+  --color-brand-hover: #473F37;
+  --color-brand-light: #F8F9FA;
+  --color-nav-text: #52525B;
+  --color-nav-active: #18181B;
+  --color-heading: #1C1917;
+  --color-subtext: #4A4A4A;
+  --color-services-bg: #F7F6F4;
+  --color-step-bg: #F0EEE9;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: var(--font-sans);
+  color: var(--color-heading);
+  background-color: #FFFFFF;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  min-height: 100vh;
+}
+
+.font-serif-title {
+  font-family: var(--font-serif);
+  letter-spacing: -0.015em;
+}
+
+.font-sans-body {
+  font-family: var(--font-sans);
+}
+
+/* Footer Navigation Link Underline Styling */
+.footer-link {
+  text-decoration: underline;
+  text-underline-offset: 4px;
+  text-decoration-color: rgba(90, 84, 80, 0.45);
+  transition: color 0.2s ease, text-decoration-color 0.2s ease;
+}
+
+.footer-link:hover {
+  color: #18181B;
+  text-decoration-color: #18181B;
+}
+
+/* Glassmorphism Frosted Card - Exact 611.94px x 483.78px */
+.frosted-glass-card {
+  width: 611.94px;
+  min-height: 483.78px;
+  max-width: calc(100vw - 32px);
+  background: rgba(255, 255, 255, 0.78);
+  backdrop-filter: blur(28px) saturate(180%);
+  -webkit-backdrop-filter: blur(28px) saturate(180%);
+  border: 1px solid rgba(255, 255, 255, 0.85);
+  box-shadow: 
+    0 25px 55px -12px rgba(0, 0, 0, 0.18),
+    0 0 0 1px rgba(255, 255, 255, 0.5) inset;
+  border-radius: 12px;
+  padding: 44px 44px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  transition: transform 0.35s ease, box-shadow 0.35s ease;
+}
+
+.frosted-glass-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 
+    0 35px 65px -12px rgba(0, 0, 0, 0.24),
+    0 0 0 1px rgba(255, 255, 255, 0.65) inset;
+}
+
+/* Hero Background Container with Wedding-table.webp */
+.hero-background {
+  background-image: url('assets/images-01/Wedding-table.webp');
+  background-size: cover;
+  background-position: center 42%;
+  background-repeat: no-repeat;
+  position: relative;
+  min-height: calc(100vh - 72px);
+}
+
+/* Subtle gradient overlay to match lighting and enhance readability */
+.hero-background::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    to bottom,
+    rgba(0, 0, 0, 0.04) 0%,
+    rgba(0, 0, 0, 0.08) 50%,
+    rgba(0, 0, 0, 0.16) 100%
+  );
+  pointer-events: none;
+}
+
+/* Navigation Buttons */
+.btn-login {
+  background-color: #F8F9FA;
+  color: #555555;
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  transition: all 0.2s ease;
+  letter-spacing: 0.08em;
+  font-size: 12px;
+  font-weight: 600;
+  text-transform: uppercase;
+}
+
+.btn-login:hover {
+  background-color: #EFEFEF;
+  color: #111111;
+  border-color: rgba(0, 0, 0, 0.16);
+  transform: translateY(-1px);
+}
+
+.btn-signup {
+  background-color: var(--color-brand-primary);
+  color: #FFFFFF;
+  transition: all 0.2s ease;
+  letter-spacing: 0.08em;
+  font-size: 12px;
+  font-weight: 600;
+  text-transform: uppercase;
+  box-shadow: 0 4px 10px rgba(92, 82, 74, 0.28);
+}
+
+.btn-signup:hover {
+  background-color: var(--color-brand-hover);
+  box-shadow: 0 6px 14px rgba(92, 82, 74, 0.38);
+  transform: translateY(-1px);
+}
+
+/* Hero CTA Button */
+.btn-cta {
+  background-color: var(--color-brand-primary);
+  color: #FFFFFF;
+  letter-spacing: 0.1em;
+  font-size: 11.5px;
+  font-weight: 600;
+  padding: 12px 28px;
+  border-radius: 8px;
+  box-shadow: 0 6px 18px rgba(92, 82, 74, 0.32);
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+  display: inline-block;
+  text-decoration: none;
+  text-transform: uppercase;
+  border: none;
+  cursor: pointer;
+}
+
+.btn-cta:hover {
+  background-color: var(--color-brand-hover);
+  box-shadow: 0 8px 24px rgba(92, 82, 74, 0.45);
+  transform: translateY(-2px);
+}
+
+.btn-cta:active {
+  transform: translateY(0);
+}
+
+/* Inquire Now White CTA Button */
+.btn-inquire {
+  background-color: #FFFFFF;
+  color: var(--color-brand-primary);
+  letter-spacing: 0.1em;
+  font-size: 12px;
+  font-weight: 700;
+  padding: 13px 34px;
+  border-radius: 8px;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.18);
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+  display: inline-block;
+  text-decoration: none;
+  text-transform: uppercase;
+  border: none;
+  cursor: pointer;
+}
+
+.btn-inquire:hover {
+  background-color: #FDFDFD;
+  color: var(--color-brand-hover);
+  box-shadow: 0 10px 28px rgba(0, 0, 0, 0.28);
+  transform: translateY(-2px);
+}
+
+.btn-inquire:active {
+  transform: translateY(0);
+}
+
+/* Active Nav Item Underline */
+.nav-link-active {
+  position: relative;
+  font-weight: 700 !important;
+  color: #18181B !important;
+}
+
+.nav-link-active::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  bottom: -4px;
+  width: 100%;
+  height: 2px;
+  background-color: #18181B;
+  border-radius: 2px;
+}
+
+/* Nav Links */
+.nav-link {
+  position: relative;
+  color: #4B5563;
+  font-weight: 500;
+  font-size: 14.5px;
+  transition: color 0.2s ease;
+  text-decoration: none;
+  display: inline-block;
+  padding: 4px 0;
+}
+
+.nav-link:hover {
+  color: #18181B;
+}
+
+/* Featured Weddings Section Styles */
+.featured-wedding-card {
+  overflow: hidden;
+  border-radius: 16px;
+  box-shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.08);
+  transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.featured-wedding-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 20px 40px -15px rgba(0, 0, 0, 0.16);
+}
+
+.featured-wedding-card img {
+  transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.featured-wedding-card:hover img {
+  transform: scale(1.03);
+}
+
+/* Services / What We Do Section */
+.service-card {
+  background-color: #FFFFFF;
+  border-radius: 14px;
+  padding: 44px 32px 48px;
+  box-shadow: 0 10px 30px -5px rgba(0, 0, 0, 0.03), 0 2px 6px rgba(0, 0, 0, 0.015);
+  border: 1px solid rgba(0, 0, 0, 0.02);
+  transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+.service-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 20px 40px -10px rgba(92, 82, 74, 0.09), 0 4px 12px rgba(0, 0, 0, 0.03);
+}
+
+/* Signature Experiences Section */
+.experience-card-img {
+  overflow: hidden;
+  border-radius: 16px;
+  box-shadow: 0 10px 25px -8px rgba(0, 0, 0, 0.08);
+}
+
+.experience-card-img img {
+  transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.experience-card:hover .experience-card-img img {
+  transform: scale(1.04);
+}
+
+/* Step Process / The Journey Cards */
+.step-card {
+  background-color: #F0EEE9;
+  border-radius: 14px;
+  padding: 44px 30px 48px;
+  transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  position: relative;
+  z-index: 10;
+}
+
+.step-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 20px 40px -10px rgba(92, 82, 74, 0.1);
+}
+
+/* Advice / For The Couple Cards */
+.advice-card {
+  background-color: #FFFFFF;
+  border-left: 3.5px solid var(--color-brand-primary);
+  border-radius: 4px 12px 12px 4px;
+  padding: 32px 34px;
+  box-shadow: 0 8px 24px -6px rgba(0, 0, 0, 0.03), 0 1px 3px rgba(0, 0, 0, 0.02);
+  transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.advice-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 16px 36px -8px rgba(92, 82, 74, 0.09);
+}
+
+/* Recent Celebrations Cards */
+.celebration-card {
+  overflow: hidden;
+  border-radius: 14px;
+  box-shadow: 0 10px 25px -8px rgba(0, 0, 0, 0.08);
+  transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.celebration-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 20px 40px -12px rgba(92, 82, 74, 0.16);
+}
+
+.celebration-card img {
+  transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.celebration-card:hover img {
+  transform: scale(1.05);
+}
+
+/* Destination Wedding Cards */
+.destination-card {
+  position: relative;
+  overflow: hidden;
+  border-radius: 16px;
+  box-shadow: 0 12px 30px -10px rgba(0, 0, 0, 0.15);
+  transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.destination-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 24px 50px -12px rgba(0, 0, 0, 0.25);
+}
+
+.destination-card img {
+  transition: transform 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.destination-card:hover img {
+  transform: scale(1.05);
+}
+
+/* Modal Styles */
+.modal-backdrop {
+  background: rgba(15, 23, 42, 0.65);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+}
+
+/* Smooth fade animations */
+.modal-content-animation {
+  animation: modalPop 0.3s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+@keyframes modalPop {
+  from {
+    opacity: 0;
+    transform: scale(0.94) translateY(12px);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+}
+
+/* Custom Toast Notification */
+#toast {
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* Login / Sign Up Auth Page */
+.login-auth-page {
+  position: relative;
+  min-height: calc(100vh - 72px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+
+.login-auth-page__bg {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+}
+
+.login-auth-page__bg img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  transform: scale(1.05);
+  filter: blur(3px);
+}
+
+.login-auth-page__overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(255, 255, 255, 0.4);
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+}
+
+.login-auth-card {
+  position: relative;
+  z-index: 10;
+  width: 100%;
+  max-width: 460px;
+  background: rgba(255, 255, 255, 0.8);
+  backdrop-filter: blur(12px) saturate(160%);
+  -webkit-backdrop-filter: blur(12px) saturate(160%);
+  border: 1px solid rgba(255, 255, 255, 0.85);
+  border-radius: 16px;
+  padding: 40px 40px 36px;
+  box-shadow:
+    0 25px 55px -12px rgba(0, 0, 0, 0.14),
+    0 0 0 1px rgba(255, 255, 255, 0.5) inset;
+}
+
+.login-auth-card .auth-input {
+  width: 100%;
+  padding: 12px 16px;
+  background: #FFFFFF;
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  border-radius: 4px;
+  font-size: 13.5px;
+  color: #1C1917;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.login-auth-card .auth-input::placeholder {
+  color: rgba(107, 114, 128, 0.75);
+}
+
+.login-auth-card .auth-input:focus {
+  outline: none;
+  border-color: #5C524A;
+  box-shadow: 0 0 0 1px #5C524A;
+}
+
+.login-auth-card .auth-submit {
+  width: 100%;
+  padding: 14px 16px;
+  background-color: #5C5248;
+  color: #FFFFFF;
+  font-family: var(--font-sans);
+  font-size: 11.5px;
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.login-auth-card .auth-submit:hover {
+  background-color: #544B43;
+}
+
+@media (max-width: 640px) {
+  .login-auth-card {
+    padding: 32px 28px 28px;
+  }
+}
+
+/* LENIS AWWWARDS SMOOTH SCROLL STYLES */
+html.lenis, html.lenis body {
+  height: auto;
+}
+
+.lenis.lenis-smooth {
+  scroll-behavior: auto !important;
+}
+
+.lenis.lenis-smooth [data-lenis-prevent] {
+  overscroll-behavior: contain;
+}
+
+.lenis.lenis-stopped {
+  overflow: hidden;
+}
+

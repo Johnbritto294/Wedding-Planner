@@ -1,0 +1,715 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>STACKLY - Your Love Story, Beautifully Planned</title>
+  
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            brand: {
+              taupe: '#5C524A',
+              taupeDark: '#4A413A',
+              taupeLight: '#6F645B',
+              bgLight: '#F8F9FA',
+              bgWarm: '#F7F6F4',
+              bgStep: '#F0EEE9',
+              navGray: '#555555',
+              dark: '#1C1917',
+              subtitle: '#5A5450',
+            }
+          },
+          fontFamily: {
+            serif: ['"Playfair Display"', 'Georgia', 'serif'],
+            sans: ['"Plus Jakarta Sans"', 'Inter', 'system-ui', 'sans-serif'],
+          }
+        }
+      }
+    }
+  </script>
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400;1,600;1,700&family=Plus+Jakarta+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet">
+
+  <!-- Custom Styles -->
+  <link rel="stylesheet" href="styles.css" />
+    <!-- Awwwards / Apple-Grade Motion Libraries (Lenis Smooth Scroll + GSAP + ScrollTrigger) -->
+  <link rel="stylesheet" href="https://unpkg.com/lenis@1.1.18/dist/lenis.css" />
+  <script src="https://unpkg.com/lenis@1.1.18/dist/lenis.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+</head>
+<body class="bg-white font-sans antialiased text-[#1C1917] flex flex-col min-h-screen selection:bg-[#5C524A] selection:text-white">
+
+  <!-- ==================== TOP NAVIGATION BAR ==================== -->
+  <header class="w-full bg-white border-b border-gray-200/75 sticky top-0 z-40">
+    <div class="max-w-[1400px] mx-auto px-6 sm:px-8 lg:px-12 h-[72px] flex items-center justify-between">
+      
+      <!-- Brand Logo -->
+      <a href="index.html" class="flex items-center gap-2.5 group select-none flex-shrink-0">
+        <img src="assets/images-02/logo-stackly.webp" alt="STACKLY" class="h-7 sm:h-8 w-auto object-contain transform transition-transform group-hover:scale-105 duration-200" />
+      </a>
+
+      <!-- Center Nav Links -->
+      <nav class="hidden lg:flex items-center gap-6 xl:gap-8 text-[14px]">
+        <a href="index.html" class="nav-link nav-link-active font-semibold">Home</a>
+        <a href="about.html" class="nav-link">About Us</a>
+        <a href="weddings.html" class="nav-link">Weddings</a>
+        <a href="services.html" class="nav-link">Services</a>
+        <a href="team.html" class="nav-link">Our Team</a>
+        <a href="inspiration.html" class="nav-link">Inspiration</a>
+        <a href="testimonials.html" class="nav-link">Testimonials</a>
+        <a href="contact.html" class="nav-link">Contact Us</a>
+      </nav>
+
+      <!-- Right Actions -->
+      <div class="hidden lg:flex items-center gap-3">
+        <a href="login.html" class="btn-login px-6 py-2 rounded-lg text-[12px] font-semibold tracking-[0.08em] inline-block">
+          LOGIN
+        </a>
+        <button onclick="openModal('signup-modal')" class="btn-signup px-6 py-2 rounded-lg text-[12px] font-semibold tracking-[0.08em]">
+          SIGN UP
+        </button>
+      </div>
+
+      <!-- Mobile Hamburger Button -->
+      <div class="flex lg:hidden items-center gap-2">
+        <button onclick="openModal('signup-modal')" class="btn-signup px-3.5 py-1.5 rounded-md text-[11px] font-semibold">
+          SIGN UP
+        </button>
+        <button id="mobile-menu-btn" class="p-2 rounded-lg text-gray-600 hover:text-gray-900 hover:bg-gray-100 focus:outline-none" aria-label="Toggle Menu">
+          <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+          </svg>
+        </button>
+      </div>
+
+    </div>
+  </header>
+
+  <!-- ==================== MAIN CONTENT: HOME ==================== -->
+  <main class="flex-grow">
+    
+    <!-- HERO SECTION -->
+    <section id="home" class="hero-background w-full flex items-center justify-center px-4 sm:px-6 py-12 lg:py-16">
+      <div class="frosted-glass-card relative z-10 mx-auto">
+        <p class="text-[10.5px] sm:text-[11px] font-semibold tracking-[0.2em] text-[#6E635B] uppercase mb-3.5">
+          TIMELESS ROMANCE AWAITS
+        </p>
+        <h1 class="font-serif-title text-[34px] sm:text-[38px] lg:text-[40px] leading-[1.14] font-bold text-[#1C1917] mb-4">
+          Your Love Story,<br />
+          Beautifully Planned.
+        </h1>
+        <p class="font-sans text-[13.5px] sm:text-[14px] leading-[1.6] text-[#4A4A4A] max-w-[410px] mx-auto mb-6 font-normal">
+          We meticulously craft bespoke wedding experiences, transforming your vision into a seamlessly executed, unforgettable celebration of love.
+        </p>
+        <div>
+          <button onclick="window.location.href='404.html'" class="btn-cta">
+            START PLANNING
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <!-- FEATURED WEDDINGS SECTION -->
+    <section id="weddings" class="w-full bg-white py-16 sm:py-20 lg:py-24 border-b border-gray-100">
+      <div class="max-w-[1152px] mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-center mb-10 sm:mb-12 lg:mb-14">
+          <h2 class="font-serif-title text-[34px] sm:text-[40px] lg:text-[44px] font-bold text-[#1C1917] tracking-tight mb-2 sm:mb-3">
+            Featured Weddings
+          </h2>
+          <p class="font-sans text-[13.5px] sm:text-[14.5px] text-[#5A5450] font-normal max-w-2xl mx-auto">
+            A curated glimpse into the ethereal celebrations we've had the honor of designing.
+          </p>
+        </div>
+
+        <div class="grid grid-cols-1 lg:grid-cols-[1.74fr_1fr] gap-5 sm:gap-6 items-stretch">
+          <div class="featured-wedding-card w-full h-[450px] sm:h-[540px] lg:h-[650px] bg-gray-100">
+            <img src="assets/images-02/featured-wedding-main.webp" alt="Bride and Groom Wedding Celebration" class="w-full h-full object-cover object-top" />
+          </div>
+          <div class="flex flex-col gap-5 sm:gap-6 h-full justify-between">
+            <div class="featured-wedding-card w-full h-[220px] sm:h-[260px] lg:h-[313px] bg-gray-100">
+              <img src="assets/images-02/featured-wedding-top-right.webp" alt="Golden Hour Sunset" class="w-full h-full object-cover object-center" />
+            </div>
+            <div class="featured-wedding-card w-full h-[220px] sm:h-[260px] lg:h-[313px] bg-gray-100">
+              <img src="assets/images-02/featured-wedding-bottom-right.webp" alt="Twilight Ceremony Aisle" class="w-full h-full object-cover object-center" />
+            </div>
+          </div>
+        </div>
+
+        <div class="mt-10 sm:mt-12 lg:mt-14 text-center">
+          <a href="404.html" class="inline-flex items-center gap-2.5 px-8 py-3.5 rounded-lg bg-[#5C524A] hover:bg-[#4A413A] text-white text-[12px] sm:text-[12.5px] font-bold tracking-[0.14em] uppercase shadow-md hover:shadow-xl transform hover:-translate-y-0.5 transition-all duration-200 group">
+            <span>VIEW FULL PORTFOLIO</span>
+            <svg class="w-4 h-4 transform group-hover:translate-x-1 transition-transform duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3" /></svg>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- WHAT WE DO / OUR SERVICES SECTION -->
+    <section id="services" class="w-full bg-[#F7F6F4] py-20 sm:py-24 lg:py-28 border-b border-gray-200/50">
+      <div class="max-w-[1152px] mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-center mb-12 sm:mb-16">
+          <p class="text-[11px] sm:text-[12px] font-bold tracking-[0.22em] text-[#7A7067] uppercase mb-2">OUR SERVICES</p>
+          <h2 class="font-serif-title text-[36px] sm:text-[42px] lg:text-[48px] font-bold text-[#5C524A] tracking-tight mb-3">What We Do</h2>
+          <p class="font-sans text-[13.5px] sm:text-[14.5px] text-[#5A5450] font-normal max-w-xl mx-auto leading-[1.6]">
+            Tailored planning services to ensure your celebration is as flawless as it is beautiful.
+          </p>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6 sm:gap-8 items-stretch">
+          <div class="service-card">
+            <div class="w-12 h-12 flex items-center justify-center mb-5 text-[#5C524A]">
+              <svg class="w-7 h-7" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2" /></svg>
+            </div>
+            <h3 class="font-serif-title text-[21px] sm:text-[22px] font-bold text-[#5C524A] mb-3">Full Service Planning</h3>
+            <p class="font-sans text-[13px] sm:text-[13.5px] leading-[1.65] text-[#5A5450]">From concept to execution, we handle every detail so you can enjoy the journey to your perfect day.</p>
+          </div>
+
+          <div class="service-card">
+            <div class="w-12 h-12 flex items-center justify-center mb-5 text-[#5C524A]">
+              <svg class="w-7 h-7" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><line x1="4" y1="21" x2="4" y2="14" /><line x1="4" y1="10" x2="4" y2="3" /><line x1="12" y1="21" x2="12" y2="12" /><line x1="12" y1="8" x2="12" y2="3" /><line x1="20" y1="21" x2="20" y2="16" /><line x1="20" y1="12" x2="20" y2="3" /><line x1="1" y1="14" x2="7" y2="14" /><line x1="9" y1="8" x2="15" y2="8" /><line x1="17" y1="16" x2="23" y2="16" /></svg>
+            </div>
+            <h3 class="font-serif-title text-[21px] sm:text-[22px] font-bold text-[#5C524A] mb-3">Partial Planning</h3>
+            <p class="font-sans text-[13px] sm:text-[13.5px] leading-[1.65] text-[#5A5450]">For couples who have started planning but need expert guidance to bring everything together seamlessly.</p>
+          </div>
+
+          <div class="service-card">
+            <div class="w-12 h-12 flex items-center justify-center mb-5 text-[#5C524A]">
+              <svg class="w-7 h-7" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="3" ry="3" /><line x1="16" y1="2" x2="16" y2="6" /><line x1="8" y1="2" x2="8" y2="6" /><line x1="3" y1="10" x2="21" y2="10" /><path d="M9 16l2 2 4-4" /></svg>
+            </div>
+            <h3 class="font-serif-title text-[21px] sm:text-[22px] font-bold text-[#5C524A] mb-3">Month-of Coordination</h3>
+            <p class="font-sans text-[13px] sm:text-[13.5px] leading-[1.65] text-[#5A5450]">Step back and relax in the final weeks while we execute your vision perfectly on the big day.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SIGNATURE EXPERIENCES / INSPIRATION SECTION -->
+    <section id="inspiration" class="w-full bg-white py-20 sm:py-24 lg:py-28 border-b border-gray-100">
+      <div class="max-w-[1152px] mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-center mb-12 sm:mb-16">
+          <p class="text-[11px] sm:text-[12px] font-bold tracking-[0.22em] text-[#7A7067] uppercase mb-2">CURATED AESTHETICS</p>
+          <h2 class="font-serif-title text-[36px] sm:text-[42px] lg:text-[48px] font-bold text-[#5C524A] tracking-tight mb-3">Signature Experiences</h2>
+          <p class="font-sans text-[13.5px] sm:text-[14.5px] text-[#5A5450] font-normal max-w-xl mx-auto leading-[1.6]">Discover the distinct styles that define our most beloved celebrations.</p>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-7 sm:gap-8 items-start">
+          <div class="experience-card flex flex-col items-center text-center group">
+            <div class="experience-card-img w-full h-[240px] sm:h-[260px] lg:h-[275px] bg-gray-100 mb-5 sm:mb-6">
+              <img src="assets/images-02/signature-classic-elegance.webp" alt="Classic Elegance" class="w-full h-full object-cover object-center" />
+            </div>
+            <h3 class="font-serif-title text-[22px] sm:text-[24px] font-bold text-[#5C524A] mb-2.5 group-hover:text-[#473F37] transition-colors">Classic Elegance</h3>
+            <p class="font-sans text-[13px] sm:text-[13.5px] leading-[1.65] text-[#5A5450] max-w-[320px]">Timeless romance with grand venues, lush florals, and sophisticated details.</p>
+          </div>
+
+          <div class="experience-card flex flex-col items-center text-center group">
+            <div class="experience-card-img w-full h-[240px] sm:h-[260px] lg:h-[275px] bg-gray-100 mb-5 sm:mb-6">
+              <img src="assets/images-02/signature-modern-minimalist.webp" alt="Modern Minimalist" class="w-full h-full object-cover object-center" />
+            </div>
+            <h3 class="font-serif-title text-[22px] sm:text-[24px] font-bold text-[#5C524A] mb-2.5 group-hover:text-[#473F37] transition-colors">Modern Minimalist</h3>
+            <p class="font-sans text-[13px] sm:text-[13.5px] leading-[1.65] text-[#5A5450] max-w-[320px]">Clean lines, understated luxury, and intentional design for the contemporary couple.</p>
+          </div>
+
+          <div class="experience-card flex flex-col items-center text-center group">
+            <div class="experience-card-img w-full h-[240px] sm:h-[260px] lg:h-[275px] bg-gray-100 mb-5 sm:mb-6">
+              <img src="assets/images-02/signature-destination-romance.webp" alt="Destination Romance" class="w-full h-full object-cover object-center" />
+            </div>
+            <h3 class="font-serif-title text-[22px] sm:text-[24px] font-bold text-[#5C524A] mb-2.5 group-hover:text-[#473F37] transition-colors">Destination Romance</h3>
+            <p class="font-sans text-[13px] sm:text-[13.5px] leading-[1.65] text-[#5A5450] max-w-[320px]">Breathtaking locales and immersive experiences that transport your guests.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- OUR PHILOSOPHY SECTION -->
+    <section id="about" class="w-full bg-[#F7F6F4] py-20 sm:py-24 lg:py-28 border-b border-gray-200/50">
+      <div class="max-w-[1152px] mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-14 items-center">
+          <div class="lg:col-span-6 w-full">
+            <div class="overflow-hidden rounded-2xl shadow-md bg-gray-100 h-[420px] sm:h-[500px] lg:h-[540px]">
+              <img src="assets/images-02/philosophy-why-choose-us.webp" alt="Bride and Groom walking at golden hour" class="w-full h-full object-cover object-center transition-transform duration-700 hover:scale-[1.03]" />
+            </div>
+          </div>
+
+          <div class="lg:col-span-6 flex flex-col justify-center text-left">
+            <p class="text-[11px] sm:text-[12px] font-bold tracking-[0.22em] text-[#7A7067] uppercase mb-2">OUR PHILOSOPHY</p>
+            <h2 class="font-serif-title text-[36px] sm:text-[42px] lg:text-[46px] font-bold text-[#5C524A] tracking-tight mb-8 leading-[1.15]">Why Couples Choose Us</h2>
+
+            <div class="space-y-7 sm:space-y-8">
+              <div class="space-y-1.5">
+                <div class="flex items-center gap-2.5">
+                  <div class="w-5 h-5 flex items-center justify-center text-[#5C524A] flex-shrink-0"><svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M6 3h12l4 6-10 12L2 9l4-6z" /></svg></div>
+                  <h3 class="font-serif-title text-[18px] sm:text-[19px] font-bold text-[#5C524A]">Meticulous Attention to Detail</h3>
+                </div>
+                <p class="font-sans text-[13px] sm:text-[13.5px] leading-[1.65] text-[#5A5450] pl-[30px]">We believe perfection lies in the details. From bespoke stationery textures to the precise timing of your first dance, nothing is overlooked.</p>
+              </div>
+
+              <div class="space-y-1.5">
+                <div class="flex items-center gap-2.5">
+                  <div class="w-5 h-5 flex items-center justify-center text-[#5C524A] flex-shrink-0"><svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="7" width="20" height="14" rx="2" ry="2" /><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16" /></svg></div>
+                  <h3 class="font-serif-title text-[18px] sm:text-[19px] font-bold text-[#5C524A]">Curated Vendor Network</h3>
+                </div>
+                <p class="font-sans text-[13px] sm:text-[13.5px] leading-[1.65] text-[#5A5450] pl-[30px]">Over years, we've cultivated relationships with the industry's most talented artisans, ensuring every element of your day is executed by masters of their craft.</p>
+              </div>
+
+              <div class="space-y-1.5">
+                <div class="flex items-center gap-2.5">
+                  <div class="w-5 h-5 flex items-center justify-center text-[#5C524A] flex-shrink-0"><svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z" /></svg></div>
+                  <h3 class="font-serif-title text-[18px] sm:text-[19px] font-bold text-[#5C524A]">A Deeply Personal Touch</h3>
+                </div>
+                <p class="font-sans text-[13px] sm:text-[13.5px] leading-[1.65] text-[#5A5450] pl-[30px]">Your wedding should feel uniquely yours. We take the time to understand your story, weaving your personalities into every aspect of the celebration.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- THE JOURNEY SECTION -->
+    <section id="journey" class="w-full bg-white py-20 sm:py-24 lg:py-28 border-b border-gray-100">
+      <div class="max-w-[1152px] mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-center mb-14 sm:mb-16 lg:mb-20">
+          <p class="text-[11px] sm:text-[12px] font-bold tracking-[0.22em] text-[#7A7067] uppercase mb-2">THE JOURNEY</p>
+          <h2 class="font-serif-title text-[36px] sm:text-[42px] lg:text-[48px] font-bold text-[#5C524A] tracking-tight mb-3">How We Bring Your Wedding to Life</h2>
+        </div>
+
+        <div class="relative">
+          <div class="hidden md:block absolute top-[62px] left-[15%] right-[15%] h-[1px] bg-[#D6D1CA] z-0"></div>
+
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-6 sm:gap-8 items-stretch relative z-10">
+            <div class="step-card">
+              <div class="w-9 h-9 rounded-lg bg-[#5C524A] text-white font-bold text-sm flex items-center justify-center mb-6 shadow-sm">1</div>
+              <h3 class="font-serif-title text-[21px] sm:text-[22px] font-bold text-[#5C524A] mb-3">Consultation</h3>
+              <p class="font-sans text-[13px] sm:text-[13.5px] leading-[1.65] text-[#5A5450]">We begin by listening to your love story, understanding your vision, and establishing the foundation for your perfect day.</p>
+            </div>
+
+            <div class="step-card">
+              <div class="w-9 h-9 rounded-lg bg-[#5C524A] text-white font-bold text-sm flex items-center justify-center mb-6 shadow-sm">2</div>
+              <h3 class="font-serif-title text-[21px] sm:text-[22px] font-bold text-[#5C524A] mb-3">Curation</h3>
+              <p class="font-sans text-[13px] sm:text-[13.5px] leading-[1.65] text-[#5A5450]">Our team meticulously designs and plans every detail, assembling the ideal vendor team to bring your aesthetic to life.</p>
+            </div>
+
+            <div class="step-card">
+              <div class="w-9 h-9 rounded-lg bg-[#5C524A] text-white font-bold text-sm flex items-center justify-center mb-6 shadow-sm">3</div>
+              <h3 class="font-serif-title text-[21px] sm:text-[22px] font-bold text-[#5C524A] mb-3">Celebration</h3>
+              <p class="font-sans text-[13px] sm:text-[13.5px] leading-[1.65] text-[#5A5450]">You simply enjoy the magic. We orchestrate the entire event, ensuring a seamless, unforgettable experience for you and your guests.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- WHAT MAKES US DIFFERENT SECTION -->
+    <section id="difference" class="w-full bg-[#F7F6F4] py-20 sm:py-24 lg:py-28 border-b border-gray-200/50">
+      <div class="max-w-[1152px] mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-16 items-center">
+          <div class="lg:col-span-5 w-full flex justify-center lg:justify-start">
+            <div class="overflow-hidden rounded-2xl shadow-md bg-gray-100 w-full max-w-[440px] h-[380px] sm:h-[420px] lg:h-[440px]">
+              <img src="assets/images-02/what-makes-us-different.webp" alt="Bridal bouquet" class="w-full h-full object-cover object-center transition-transform duration-700 hover:scale-[1.03]" />
+            </div>
+          </div>
+
+          <div class="lg:col-span-7 flex flex-col justify-center text-left">
+            <h2 class="font-serif-title text-[38px] sm:text-[44px] lg:text-[48px] font-bold text-[#1C1917] tracking-tight mb-6 leading-[1.12]">
+              What Makes Us<br />Different
+            </h2>
+            <p class="font-sans text-[14px] sm:text-[15px] leading-[1.75] text-[#52525B] max-w-[500px]">
+              We take on a limited number of commissions each year to ensure uncompromising dedication to each celebration. Our approach blends editorial styling with logistical mastery, delivering an experience that is as breathtaking as it is smooth.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- FOR THE COUPLE SECTION -->
+    <section id="advice" class="w-full bg-white py-20 sm:py-24 lg:py-28 border-b border-gray-100">
+      <div class="max-w-[1000px] mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-center mb-12 sm:mb-16">
+          <h2 class="font-serif-title text-[36px] sm:text-[42px] lg:text-[46px] font-bold text-[#1C1917] tracking-tight mb-3">For the Couple</h2>
+          <p class="font-sans text-[13.5px] sm:text-[14.5px] text-[#5A5450] max-w-lg mx-auto">Practical, heart-led advice to keep you grounded.</p>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6 sm:gap-8">
+          <div class="advice-card text-left">
+            <h3 class="font-serif-title text-[19px] sm:text-[20px] font-bold text-[#5C524A] mb-2">Prioritize Connection</h3>
+            <p class="font-sans text-[13px] sm:text-[13.5px] leading-[1.65] text-[#5A5450]">Amidst the planning, schedule regular date nights where wedding talk is off-limits.</p>
+          </div>
+
+          <div class="advice-card text-left">
+            <h3 class="font-serif-title text-[19px] sm:text-[20px] font-bold text-[#5C524A] mb-2">Trust Your Instincts</h3>
+            <p class="font-sans text-[13px] sm:text-[13.5px] leading-[1.65] text-[#5A5450]">Trends will fade, but your unique love story is timeless. Make choices that resonate with you both.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- RECENT CELEBRATIONS SECTION -->
+    <section id="celebrations" class="w-full bg-[#F7F6F4] py-20 sm:py-24 lg:py-28 border-b border-gray-200/50">
+      <div class="max-w-[1152px] mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-center mb-12 sm:mb-16">
+          <h2 class="font-serif-title text-[36px] sm:text-[42px] lg:text-[48px] font-bold text-[#5C524A] tracking-tight">Recent Celebrations</h2>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6 sm:gap-7 items-stretch">
+          <div class="celebration-card h-[340px] sm:h-[360px] lg:h-[380px] bg-gray-100">
+            <img src="assets/images-01/celebration-kiss-petals.webp" alt="Kiss Under Petals Shower" class="w-full h-full object-cover object-top" />
+          </div>
+          <div class="celebration-card h-[340px] sm:h-[360px] lg:h-[380px] bg-gray-100">
+            <img src="assets/images-01/celebration-garden-party.webp" alt="Garden Party Procession" class="w-full h-full object-cover object-center" />
+          </div>
+          <div class="celebration-card h-[340px] sm:h-[360px] lg:h-[380px] bg-gray-100">
+            <img src="assets/images-01/celebration-first-dance.webp" alt="First Dance Dip" class="w-full h-full object-cover object-center" />
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- TESTIMONIAL SLIDER SECTION -->
+    <section id="testimonials" class="w-full bg-[#F7F6F4] py-20 sm:py-24 lg:py-28 border-b border-gray-200/50 relative overflow-hidden">
+      <div class="max-w-[880px] mx-auto px-4 sm:px-6 text-center relative z-10">
+        
+        <p class="text-[11px] sm:text-[12px] font-bold tracking-[0.22em] text-[#7A7067] uppercase mb-3">LOVE NOTES</p>
+        <div class="font-serif text-[#DFDACF] text-[64px] sm:text-[72px] leading-none select-none -mb-3 opacity-90">“</div>
+
+        <!-- Slider Track Container -->
+        <div class="relative min-h-[240px] sm:min-h-[210px] flex items-center justify-center overflow-hidden">
+          
+          <!-- Slide 1 -->
+          <div id="love-note-slide-0" class="love-note-slide w-full transition-all duration-700 ease-in-out opacity-100 transform translate-x-0">
+            <blockquote class="font-serif text-[21px] sm:text-[24px] lg:text-[26px] leading-[1.58] text-[#5C524A] font-normal mb-8 max-w-[760px] mx-auto">
+              "Working with Ethereal Union was an absolute dream. They captured the essence of our relationship and translated it into a celebration more beautiful than we could have ever imagined. Every detail was flawless."
+            </blockquote>
+            <div class="inline-flex items-center gap-3.5 text-left">
+              <div class="w-11 h-11 sm:w-12 sm:h-12 rounded-xl overflow-hidden shadow-sm flex-shrink-0 bg-gray-200 border border-white">
+                <img src="assets/images-02/testimonial-eleanor-thomas.webp" alt="Eleanor and Thomas" class="w-full h-full object-cover object-center" />
+              </div>
+              <div>
+                <h4 class="font-serif text-[15px] sm:text-[16px] font-bold text-[#5C524A] leading-tight">Eleanor &amp; Thomas</h4>
+                <p class="font-sans text-[12px] text-[#7A7067] font-medium mt-0.5">Tuscany, Italy</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Slide 2 -->
+          <div id="love-note-slide-1" class="love-note-slide w-full absolute inset-0 transition-all duration-700 ease-in-out opacity-0 transform translate-x-12 pointer-events-none">
+            <blockquote class="font-serif text-[21px] sm:text-[24px] lg:text-[26px] leading-[1.58] text-[#5C524A] font-normal mb-8 max-w-[760px] mx-auto">
+              "From the initial design concept to the late-night dancing under the stars in Provence, the team handled everything with such effortless grace. We didn't stress for a single moment."
+            </blockquote>
+            <div class="inline-flex items-center gap-3.5 text-left">
+              <div class="w-11 h-11 sm:w-12 sm:h-12 rounded-xl overflow-hidden shadow-sm flex-shrink-0 bg-gray-200 border border-white">
+                <img src="assets/images-02/team-sophia.webp" alt="Sophia and Julian" class="w-full h-full object-cover object-center" />
+              </div>
+              <div>
+                <h4 class="font-serif text-[15px] sm:text-[16px] font-bold text-[#5C524A] leading-tight">Sophia &amp; Julian</h4>
+                <p class="font-sans text-[12px] text-[#7A7067] font-medium mt-0.5">Provence, France</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Slide 3 -->
+          <div id="love-note-slide-2" class="love-note-slide w-full absolute inset-0 transition-all duration-700 ease-in-out opacity-0 transform translate-x-12 pointer-events-none">
+            <blockquote class="font-serif text-[21px] sm:text-[24px] lg:text-[26px] leading-[1.58] text-[#5C524A] font-normal mb-8 max-w-[760px] mx-auto">
+              "Their eye for design and commitment to perfection turned our Lake Como weekend into a fairytale. Our guests are still talking about it months later as the most magical wedding they've ever attended."
+            </blockquote>
+            <div class="inline-flex items-center gap-3.5 text-left">
+              <div class="w-11 h-11 sm:w-12 sm:h-12 rounded-xl overflow-hidden shadow-sm flex-shrink-0 bg-gray-200 border border-white">
+                <img src="assets/images-02/team-clara-vance.webp" alt="Clara and Lucas" class="w-full h-full object-cover object-center" />
+              </div>
+              <div>
+                <h4 class="font-serif text-[15px] sm:text-[16px] font-bold text-[#5C524A] leading-tight">Clara &amp; Lucas</h4>
+                <p class="font-sans text-[12px] text-[#7A7067] font-medium mt-0.5">Lake Como, Italy</p>
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+        <!-- Navigation Controls: Prev/Next & Dots -->
+        <div class="flex items-center justify-center gap-6 mt-10">
+          <button onclick="changeLoveNoteSlide(-1)" class="w-9 h-9 rounded-full border border-[#685D54]/30 text-[#685D54] hover:bg-[#685D54] hover:text-white transition-all flex items-center justify-center shadow-xs" title="Previous Slide">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" /></svg>
+          </button>
+
+          <!-- Indicator Dots -->
+          <div class="flex items-center gap-2.5">
+            <button onclick="setLoveNoteSlide(0)" class="love-note-dot w-3 h-3 rounded-full bg-[#685D54] transition-all" title="Slide 1"></button>
+            <button onclick="setLoveNoteSlide(1)" class="love-note-dot w-2.5 h-2.5 rounded-full bg-[#C5BBB0] hover:bg-[#685D54] transition-all" title="Slide 2"></button>
+            <button onclick="setLoveNoteSlide(2)" class="love-note-dot w-2.5 h-2.5 rounded-full bg-[#C5BBB0] hover:bg-[#685D54] transition-all" title="Slide 3"></button>
+          </div>
+
+          <button onclick="changeLoveNoteSlide(1)" class="w-9 h-9 rounded-full border border-[#685D54]/30 text-[#685D54] hover:bg-[#685D54] hover:text-white transition-all flex items-center justify-center shadow-xs" title="Next Slide">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" /></svg>
+          </button>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- DESTINATION WEDDING STORIES SECTION -->
+    <section id="destinations" class="w-full bg-white py-20 sm:py-24 lg:py-28 border-b border-gray-100">
+      <div class="max-w-[1152px] mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-center mb-12 sm:mb-16">
+          <h2 class="font-serif-title text-[38px] sm:text-[44px] lg:text-[48px] font-bold text-[#1C1917] tracking-tight mb-3">
+            Destination Wedding Stories
+          </h2>
+          <div class="w-12 h-[1px] bg-[#B5ACA2] mx-auto my-3.5"></div>
+          <p class="font-sans text-[13.5px] sm:text-[14.5px] text-[#5A5450] max-w-xl mx-auto leading-[1.65]">
+            From the sun-drenched Amalfi Coast to the historic châteaux of France, our international celebrations are crafted with global sophistication.
+          </p>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6 sm:gap-7 items-stretch">
+          <div class="destination-card h-[280px] sm:h-[320px] lg:h-[350px] group">
+            <img src="assets/images-02/destination-lake-como.webp" alt="Lake Como Italy" class="w-full h-full object-cover object-center" />
+            <div class="absolute inset-0 bg-gradient-to-t from-black/85 via-black/35 to-black/10 transition-opacity duration-300 group-hover:from-black/90"></div>
+            <div class="absolute bottom-0 left-0 right-0 p-6 sm:p-8 z-10 text-left">
+              <p class="text-[11px] sm:text-[11.5px] font-bold tracking-[0.22em] text-white/90 uppercase mb-1.5">LAKE COMO, ITALY</p>
+              <h3 class="font-serif-title text-[24px] sm:text-[28px] font-bold text-white leading-tight">A Villa Retreat</h3>
+            </div>
+          </div>
+
+          <div class="destination-card h-[280px] sm:h-[320px] lg:h-[350px] group">
+            <img src="assets/images-02/destination-provence-france.webp" alt="Provence France" class="w-full h-full object-cover object-center" />
+            <div class="absolute inset-0 bg-gradient-to-t from-black/85 via-black/35 to-black/10 transition-opacity duration-300 group-hover:from-black/90"></div>
+            <div class="absolute bottom-0 left-0 right-0 p-6 sm:p-8 z-10 text-left">
+              <p class="text-[11px] sm:text-[11.5px] font-bold tracking-[0.22em] text-white/90 uppercase mb-1.5">PROVENCE, FRANCE</p>
+              <h3 class="font-serif-title text-[24px] sm:text-[28px] font-bold text-white leading-tight">Lavender & Lace</h3>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- BEGIN YOUR JOURNEY (CONTACT CTA) SECTION -->
+    <section id="contact" class="w-full bg-[#5C524A] py-20 sm:py-24 lg:py-28 text-white">
+      <div class="max-w-[760px] mx-auto px-4 sm:px-6 text-center">
+        <h2 class="font-serif-title text-[38px] sm:text-[46px] lg:text-[52px] font-bold text-white tracking-tight mb-5 leading-[1.15]">
+          Begin Your Journey
+        </h2>
+        <p class="font-sans text-[14px] sm:text-[15px] leading-[1.75] text-white/85 max-w-[620px] mx-auto mb-9 font-normal">
+          We accept a limited number of commissions each year to ensure the highest level of service and dedication to our couples. Contact us to inquire about availability and schedule your consultation.
+        </p>
+        <div>
+          <button onclick="window.location.href='404.html'" class="btn-inquire">
+            INQUIRE NOW
+          </button>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ==================== FOOTER ==================== -->
+  <footer class="w-full bg-[#F7F6F4] text-[#5A5450] pt-16 pb-12 sm:pt-20 sm:pb-14 border-t border-gray-200/60">
+    <div class="max-w-[1152px] mx-auto px-4 sm:px-6 lg:px-8 flex flex-col items-center text-center">
+      
+      <!-- Brand Logo -->
+      <a href="index.html" class="inline-block mb-3 group select-none">
+        <img src="assets/images-02/logo-stackly.webp" alt="STACKLY" class="h-8 sm:h-9 w-auto object-contain transform transition-transform group-hover:scale-105 duration-200" />
+      </a>
+
+      <!-- Tagline -->
+      <p class="font-sans text-[14px] text-[#6E635B] font-normal mb-7">
+        Crafted for Timeless Romance.
+      </p>
+
+      <!-- Social Media Icons -->
+      <div class="flex items-center justify-center gap-3 sm:gap-3.5 mb-9">
+        <a href="404.html" onclick="showToast('Follow STACKLY on Facebook')" class="w-9 h-9 rounded-full border border-[#5C524A]/40 hover:border-[#5C524A] text-[#5C524A] hover:bg-[#5C524A] hover:text-white flex items-center justify-center transition-all duration-200" aria-label="Facebook">
+          <svg class="w-4 h-4 fill-current" viewBox="0 0 24 24"><path d="M18 2h-3a5 5 0 00-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 011-1h3z"/></svg>
+        </a>
+        <a href="404.html" onclick="showToast('Follow STACKLY on Twitter')" class="w-9 h-9 rounded-full border border-[#5C524A]/40 hover:border-[#5C524A] text-[#5C524A] hover:bg-[#5C524A] hover:text-white flex items-center justify-center transition-all duration-200" aria-label="Twitter">
+          <svg class="w-4 h-4 fill-current" viewBox="0 0 24 24"><path d="M23 3a10.9 10.9 0 01-3.14 1.53 4.48 4.48 0 00-7.86 3v1A10.66 10.66 0 013 4s-4 9 5 13a11.64 11.64 0 01-7 2c9 5 20 0 20-11.5a4.5 4.5 0 00-.08-.83A7.72 7.72 0 0023 3z"/></svg>
+        </a>
+        <a href="404.html" onclick="showToast('Subscribe to STACKLY on YouTube')" class="w-9 h-9 rounded-full border border-[#5C524A]/40 hover:border-[#5C524A] text-[#5C524A] hover:bg-[#5C524A] hover:text-white flex items-center justify-center transition-all duration-200" aria-label="YouTube">
+          <svg class="w-4 h-4 fill-current" viewBox="0 0 24 24"><path d="M22.54 6.42a2.78 2.78 0 00-1.94-2C18.88 4 12 4 12 4s-6.88 0-8.6.46a2.78 2.78 0 00-1.94 2A29 29 0 001 11.75a29 29 0 00.46 5.33A2.78 2.78 0 003.4 19.1c1.72.46 8.6.46 8.6.46s6.88 0 8.6-.46a2.78 2.78 0 001.94-2 29 29 0 00.46-5.25 29 29 0 00-.46-5.43zM9.75 15.02V8.48l5.75 3.27-5.75 3.27z"/></svg>
+        </a>
+        <a href="404.html" onclick="showToast('Follow STACKLY on Instagram')" class="w-9 h-9 rounded-full border border-[#5C524A]/40 hover:border-[#5C524A] text-[#5C524A] hover:bg-[#5C524A] hover:text-white flex items-center justify-center transition-all duration-200" aria-label="Instagram">
+          <svg class="w-4 h-4 fill-none stroke-current stroke-2" viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1112.63 8 4 4 0 0116 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
+        </a>
+      </div>
+
+      <!-- Footer Navigation Links -->
+      <div class="flex flex-wrap items-center justify-center gap-x-6 sm:gap-x-8 gap-y-3 text-[13.5px] sm:text-[14px] text-[#5A5450] font-medium mb-10">
+        <a href="index.html" class="footer-link">Home</a>
+        <a href="about.html" class="footer-link">About Us</a>
+        <a href="weddings.html" class="footer-link">Weddings</a>
+        <a href="services.html" class="footer-link">Services</a>
+        <a href="team.html" class="footer-link">Our Team</a>
+        <a href="inspiration.html" class="footer-link">Inspiration</a>
+        <a href="testimonials.html" class="footer-link">Testimonials</a>
+        <a href="contact.html" class="footer-link">Contact Us</a>
+      </div>
+
+      <!-- Copyright Bar -->
+      <div class="text-[12px] sm:text-[12.5px] text-[#7A7067] font-normal pt-4 border-t border-gray-200/50 w-full max-w-[600px]">
+        © 2026 STACKLY. Crafted for Timeless Romance.
+      </div>
+
+    </div>
+  </footer>
+
+  <!-- ==================== MOBILE MENU DRAWER ==================== -->
+  <div id="mobile-menu" class="hidden fixed inset-0 z-50 flex flex-col justify-between bg-white/95 backdrop-blur-xl px-6 py-6 transition-all duration-300">
+    <div>
+      <div class="flex items-center justify-between mb-8 pb-4 border-b border-gray-100">
+        <div class="flex items-center gap-2.5">
+          <img src="assets/images-02/logo-stackly.webp" alt="STACKLY" class="h-6 w-auto object-contain" />
+        </div>
+        <button id="close-mobile-menu" class="p-2 rounded-lg text-gray-500 hover:text-gray-800 hover:bg-gray-100">
+          <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+          </svg>
+        </button>
+      </div>
+
+      <nav class="flex flex-col gap-4 text-[16px] font-medium text-gray-700">
+        <a href="index.html" class="py-2 hover:text-[#18181B] pl-3">Home</a>
+        <a href="about.html" class="py-2 hover:text-[#18181B] pl-3">About Us</a>
+        <a href="weddings.html" class="py-2 hover:text-[#18181B] pl-3">Weddings</a>
+        <a href="services.html" class="py-2 hover:text-[#18181B] pl-3">Services</a>
+        <a href="team.html" class="py-2 hover:text-[#18181B] pl-3">Our Team</a>
+        <a href="inspiration.html" class="py-2 hover:text-[#18181B] pl-3">Inspiration</a>
+        <a href="testimonials.html" class="py-2 hover:text-[#18181B] pl-3">Testimonials</a>
+        <a href="contact.html" class="py-2 hover:text-[#18181B] pl-3">Contact Us</a>
+      </nav>
+    </div>
+
+    <div class="flex flex-col gap-3 pt-6 border-t border-gray-100">
+      <a href="login.html" class="w-full py-3 rounded-lg border border-gray-200 text-[13px] font-semibold text-gray-700 uppercase tracking-wider text-center block">
+        LOGIN
+      </a>
+      <button onclick="closeModal('mobile-menu'); openModal('signup-modal');" class="w-full py-3 rounded-lg bg-[#5C524A] text-white text-[13px] font-semibold uppercase tracking-wider shadow-md">
+        SIGN UP
+      </button>
+    </div>
+  </div>
+
+  <!-- ==================== MODALS ==================== -->
+  <div id="planning-modal" class="hidden fixed inset-0 z-50 modal-backdrop items-center justify-center p-4">
+    <div class="bg-white rounded-2xl max-w-lg w-full p-7 sm:p-8 relative shadow-2xl modal-content-animation border border-gray-100">
+      <button onclick="closeModal('planning-modal')" class="absolute top-5 right-5 text-gray-400 hover:text-gray-600 transition-colors p-1"><svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" /></svg></button>
+      <div class="text-center mb-6">
+        <p class="text-[11px] font-bold uppercase tracking-[0.2em] text-[#6E635B] mb-1.5">STACKLY WEDDINGS</p>
+        <h3 class="font-serif-title text-2xl font-bold text-[#1C1917]">Start Planning Your Dream Day</h3>
+      </div>
+      <form id="planning-form" class="space-y-4 text-left">
+        <div><label class="block text-xs font-semibold text-gray-700 uppercase tracking-wider mb-1">Your Name</label><input type="text" required placeholder="Eleanor Vance" class="w-full px-3.5 py-2.5 text-sm rounded-lg border border-gray-200" /></div>
+        <div><label class="block text-xs font-semibold text-gray-700 uppercase tracking-wider mb-1">Email Address</label><input type="email" required placeholder="eleanor@example.com" class="w-full px-3.5 py-2.5 text-sm rounded-lg border border-gray-200" /></div>
+        <button type="submit" class="w-full py-3 bg-[#5C524A] text-white text-xs font-bold uppercase tracking-[0.12em] rounded-lg shadow-lg">Request Consultation</button>
+      </form>
+    </div>
+  </div>
+
+  <div id="login-modal" class="hidden fixed inset-0 z-50 modal-backdrop items-center justify-center p-4">
+    <div class="relative w-full max-w-[460px] bg-[#FAF9F7]/95 backdrop-blur-md rounded-xl p-7 sm:p-9 shadow-2xl border border-white/80 transition-all duration-300">
+      <button onclick="closeModal('login-modal')" class="absolute top-4 right-4 text-gray-400 hover:text-gray-600 p-1"><svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" /></svg></button>
+      
+      <!-- Card Header -->
+      <div class="text-center mb-6">
+        <h3 class="font-serif-title text-[38px] sm:text-[44px] font-bold text-[#5C524A] tracking-tight mb-1 leading-none">
+          Welcome Back
+        </h3>
+        <p class="font-sans text-[13px] sm:text-[13.5px] text-[#6B625A] font-normal">
+          Sign in to continue planning your perfect celebration.
+        </p>
+      </div>
+
+      <!-- Form -->
+      <form id="login-form" onsubmit="event.preventDefault(); window.location.href='dashboard.html';" class="space-y-3.5 text-left">
+        <div>
+          <input type="email" required placeholder="Enter your email address" class="w-full px-4 py-2.5 bg-white border border-gray-200/90 rounded-md focus:outline-none focus:border-[#5C524A] text-[13px] text-[#1C1917] placeholder-gray-400/90" />
+        </div>
+        <div class="flex items-center justify-between pt-0.5 pb-0.5">
+          <div class="flex items-center gap-2">
+            <input type="checkbox" id="modal-remember" class="w-3.5 h-3.5 rounded border-gray-300 text-[#5C524A] focus:ring-[#5C524A] cursor-pointer" />
+            <label for="modal-remember" class="font-sans text-[10.5px] font-bold tracking-[0.12em] text-[#6B625A] uppercase cursor-pointer select-none">
+              REMEMBER ME
+            </label>
+          </div>
+          <a href="404.html" class="font-sans text-[11.5px] font-semibold text-[#7A7067] hover:text-[#1C1917] underline">
+            Forgot Password?
+          </a>
+        </div>
+        <div>
+          <input type="password" required placeholder="Enter your password" class="w-full px-4 py-2.5 bg-white border border-gray-200/90 rounded-md focus:outline-none focus:border-[#5C524A] text-[13px] text-[#1C1917] placeholder-gray-400/90" />
+        </div>
+        <button type="submit" class="w-full py-3 bg-[#685D54] hover:bg-[#544B43] text-white font-sans text-[11px] font-bold tracking-[0.18em] uppercase transition-colors shadow-sm">
+          LOG IN
+        </button>
+      </form>
+
+      <div class="text-center mt-5 pt-1">
+        <p class="font-sans text-[12px] text-[#6B625A] font-normal">
+          New to us? <button onclick="closeModal('login-modal'); openModal('signup-modal');" class="font-bold underline text-[#5C524A] hover:text-[#1C1917]">Create an Account</button>
+        </p>
+      </div>
+    </div>
+  </div>
+
+  <div id="signup-modal" class="hidden fixed inset-0 z-50 modal-backdrop items-center justify-center p-4">
+    <div class="relative w-full max-w-[460px] bg-[#FAF9F7]/95 backdrop-blur-md rounded-xl p-7 sm:p-9 shadow-2xl border border-white/80 transition-all duration-300">
+      <button onclick="closeModal('signup-modal')" class="absolute top-4 right-4 text-gray-400 hover:text-gray-600 p-1"><svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" /></svg></button>
+      
+      <!-- Card Header -->
+      <div class="text-center mb-6">
+        <h3 class="font-serif-title text-[38px] sm:text-[44px] font-bold text-[#5C524A] tracking-tight mb-1 leading-none">
+          Welcome !
+        </h3>
+        <p class="font-sans text-[13px] sm:text-[13.5px] text-[#6B625A] font-normal">
+          Begin your bespoke journey.
+        </p>
+      </div>
+
+      <!-- Form -->
+      <form id="signup-form" onsubmit="event.preventDefault(); window.location.href='dashboard.html';" class="space-y-3.5 text-left">
+        <div>
+          <input type="text" required placeholder="Enter your full name" class="w-full px-4 py-2.5 bg-white border border-gray-200/90 rounded-md focus:outline-none focus:border-[#5C524A] text-[13px] text-[#1C1917] placeholder-gray-400/90" />
+        </div>
+        <div>
+          <input type="email" required placeholder="Enter your email address" class="w-full px-4 py-2.5 bg-white border border-gray-200/90 rounded-md focus:outline-none focus:border-[#5C524A] text-[13px] text-[#1C1917] placeholder-gray-400/90" />
+        </div>
+        <div>
+          <input type="password" required placeholder="Create a password" class="w-full px-4 py-2.5 bg-white border border-gray-200/90 rounded-md focus:outline-none focus:border-[#5C524A] text-[13px] text-[#1C1917] placeholder-gray-400/90" />
+        </div>
+        <div>
+          <input type="password" required placeholder="Confirm your password" class="w-full px-4 py-2.5 bg-white border border-gray-200/90 rounded-md focus:outline-none focus:border-[#5C524A] text-[13px] text-[#1C1917] placeholder-gray-400/90" />
+        </div>
+        <div class="flex items-center gap-2 pt-0.5 pb-1">
+          <input type="checkbox" id="modal-terms" required class="w-3.5 h-3.5 rounded border-gray-300 text-[#5C524A] focus:ring-[#5C524A] cursor-pointer" />
+          <label for="modal-terms" class="font-sans text-[11.5px] text-[#6B625A] cursor-pointer select-none">
+            I agree to the <a href="#" class="underline hover:text-[#1C1917]">Terms of Service</a> &amp; <a href="#" class="underline hover:text-[#1C1917]">Privacy Policy</a>
+          </label>
+        </div>
+        <button type="submit" class="w-full py-3 bg-[#685D54] hover:bg-[#544B43] text-white font-sans text-[11px] font-bold tracking-[0.18em] uppercase transition-colors shadow-sm">
+          CREATE ACCOUNT
+        </button>
+      </form>
+
+      <div class="text-center mt-5 pt-1">
+        <p class="font-sans text-[12px] text-[#6B625A] font-normal">
+          Already have an account? <a href="login.html" class="font-bold tracking-[0.06em] underline text-[#5C524A] hover:text-[#1C1917] uppercase text-[11px]">LOG IN</a>
+        </p>
+      </div>
+    </div>
+  </div>
+  </div>
+
+  <!-- NOTIFICATION TOAST -->
+  <div id="toast" class="fixed bottom-6 right-6 z-50 transform translate-y-24 opacity-0 pointer-events-none bg-[#1C1917] text-white px-5 py-3.5 rounded-xl shadow-2xl flex items-center gap-3 border border-gray-800">
+    <div class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></div>
+    <span id="toast-message" class="text-xs sm:text-sm font-medium">Notification message</span>
+  </div>
+
+  <!-- JavaScript -->
+  <script src="script.js"></script>
+</body>
+</html>
